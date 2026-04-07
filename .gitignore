@@ -1,0 +1,13 @@
+# Machine-specific settings (if ever needed)
+.claude/settings.local.json
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Obsidian config (each machine generates its own)
+.obsidian/
+
+# Hook error log (machine-specific, don't track)
+.claude/hooks/error.log
