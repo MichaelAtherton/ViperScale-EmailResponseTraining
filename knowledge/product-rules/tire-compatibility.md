@@ -15,6 +15,21 @@ Source: Discovery call with Dan, 2026-04-06
 - SKU 444 "black tires" are different — a customer received 444s instead of 432s
 - When wrong tires are on a car, Dan's approach: either send correct tires or send replacement car and have customer return the incorrect one
 
+## V-Spec Wheels
+- Fronts are **razor front wheels** — Viper does not list a wheel size for razor fronts
+- Only tire sizes vary; the rims are always the same
+- **"Wheels" and "rims" are used interchangeably** in the slot car industry — never correct a customer who uses one term for the other
+
+## Tire/Wheel Recommendation Decision Tree
+- **Never recommend a specific tire or wheel without asking follow-up questions first**
+- The right answer depends on: car make/model, track type, environment (hot/cold)
+- Dan's process:
+  1. Ask what car they have (make, model, specific variant)
+  2. Identify the current tires being used
+  3. Recommend trying a size bigger or smaller in the same compound
+- This is always a multi-question conversation, never a single answer
+- Similar pattern applies to "what's the best wheel" — always ask first, then recommend
+
 ## General Tire Guidance
 - For any car type: navigate to Shop by Car Type → [car type] → Tires — "anything that's in here will fit"
 - Dan's standard response: "Here's a link to all of the rear tires that we offer for the [car type]"
