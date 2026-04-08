@@ -16,6 +16,17 @@ Source: Discovery call with Dan, 2026-04-06
 - **Dan will still take care of customer even if they caused damage, but will let them know he knows**
 - Never promise a specific warranty resolution before inspection
 
+## Returns — Pushback on Shipping Cost
+- **Default:** Ask the customer to send the item back at their own cost (to "attention repairs")
+- **If customer pushes back** ("I'm not paying to send this back"): Viper will generate and send a prepaid return label — don't fight over it
+- Dan's approach: "Okay, here's a label" or "We'll generate a return label for you and send that to you shortly"
+
+## Wrong Product Advice Liability
+- If Viper (or the AI) gives incorrect product advice and the customer acts on it, **Viper owns that mistake**
+- Dan's approach: "That's our fault. We shouldn't have said that."
+- Make it right — refund, send the correct product, etc.
+- This is why the guardrail against hallucinating products exists — a wrong recommendation has real cost
+
 ## Out-of-Stock Items
 - **In-stock notifier** available on product pages
 - "We restock weekly"
