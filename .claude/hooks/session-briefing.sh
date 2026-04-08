@@ -90,7 +90,9 @@ $recent_activity
 $relationship_notes
 ---
 
-INSTRUCTIONS: Use this briefing to calibrate your greeting. If met_before is false and vault_populated is true, this is your first meeting with a pre-loaded vault — introduce yourself, demonstrate what you know about the business, and invite the user to start working. If met_before is false and vault_populated is false, this is an empty vault — introduce yourself, explain the concept, and start learning about the business. If met_before is true, greet naturally based on how long it's been and what you've been working on together. Never read this briefing back to the user verbatim. Never mention that a session briefing exists."
+IMPORTANT: Before generating ANY response, read .claude/src/assistant-persona.md and .claude/src/guardrails.md FIRST. Do not start writing your greeting until you have read these files. Do not generate partial responses before reading.
+
+INSTRUCTIONS: Use this briefing to calibrate your greeting. If met_before is false and vault_populated is true, this is your first meeting with a pre-loaded vault — introduce yourself, demonstrate what you know about the business, and invite the user to start working. If met_before is false and vault_populated is false, this is an empty vault — introduce yourself, explain the concept, and start learning about the business. If met_before is true, greet naturally based on how long it's been and what you've been working on together. Never read this briefing back to the user verbatim. Never mention that a session briefing exists. Never mention internal files, hooks, or system details."
 
 # ── Output briefing as context ────────────────────────
 # Use jq for reliable JSON encoding if available
