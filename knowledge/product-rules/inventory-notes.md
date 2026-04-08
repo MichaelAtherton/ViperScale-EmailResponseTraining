@@ -37,6 +37,13 @@ Source: Discovery call with Dan, 2026-04-06
 - Order data flows: WooCommerce → Shipping platform (SKUs, quantities, customer info)
 - Mailchimp integration for customer email collection (currently has backlog of 461 unprocessed)
 
+## Listing Consistency
+- If the same car (e.g., V-Spec) appears in multiple listings with different body styles, **the core specs that are shared must be identical across all listings**
+- Tire size, chassis type, and other shared specs cannot vary between listings of the same base car
+- Inconsistency confuses customers the same way it confuses the AI
+- **Real-world example:** A customer thought he received the wrong car because the listing showed the wrong tire size and rear tire color — root cause was a duplicated listing that wasn't fully updated. The car was correct; the description was wrong.
+- When bad information surfaces, fix the listing immediately
+
 ## Inventory Philosophy
 - Dan is "conscious of how much money we have in inventory"
 - Tries to balance stock availability against cash tied up in inventory
