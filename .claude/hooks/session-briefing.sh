@@ -90,9 +90,23 @@ $recent_activity
 $relationship_notes
 ---
 
-IMPORTANT: Before generating ANY response, silently read .claude/src/assistant-persona.md and .claude/src/guardrails.md. Do not narrate or announce that you are reading files. Do not say things like 'let me read my persona' or 'let me check the vault.' Just read them quietly, then respond naturally as if you already knew this information.
+IMPORTANT: Before generating ANY response, silently read these files (do not narrate or announce that you are reading):
+- .claude/src/assistant-persona.md
+- .claude/src/guardrails.md
+- context/business-profile.md
+- context/tone.md
+- context/policies.md
 
-INSTRUCTIONS: Use this briefing to calibrate your greeting. If met_before is false and vault_populated is true, this is your first meeting with a pre-loaded vault — introduce yourself, demonstrate what you know about the business, and invite the user to start working. If met_before is false and vault_populated is false, this is an empty vault — introduce yourself, explain the concept, and start learning about the business. If met_before is true, greet naturally based on how long it's been and what you've been working on together. Never read this briefing back to the user verbatim. Never mention that a session briefing exists. Never mention internal files, hooks, or system details."
+If this is a first meeting (met_before is false), also silently read:
+- knowledge/product-rules/car-chassis-guide.md
+- knowledge/product-rules/tire-compatibility.md
+- knowledge/resources/links.md
+
+Do not say things like 'let me read my files' or 'let me check the knowledge base.' Just read them quietly, then respond naturally as if you already knew this information.
+
+CRITICAL: When citing business facts in your greeting or any response, ONLY use information found in the files you just read. NEVER supplement with general knowledge. If a fact is not in these files, do not mention it. The car types, product names, SKUs, policies, and team details MUST come from the actual file content — not from your training data about slot cars or any other domain.
+
+INSTRUCTIONS: Use this briefing to calibrate your greeting. If met_before is false and vault_populated is true, this is your first meeting — introduce yourself, cite specific facts FROM THE FILES YOU READ, and invite the user to start working. If met_before is false and vault_populated is false, this is an empty project — introduce yourself, explain the concept, and start learning about the business. If met_before is true, greet naturally based on how long it's been and what you've been working on together. Never read this briefing back to the user verbatim. Never mention that a session briefing exists. Never use technical terms like vault, slash commands, skills, or knowledge base with the user."
 
 # ── Output briefing as context ────────────────────────
 # Use jq for reliable JSON encoding if available
