@@ -44,6 +44,24 @@ Source: Discovery call with Dan, 2026-04-06
 - Uses "cliffs notes" — brief keywords like "eBay" or "link to Tyco offerings"
 - Abby then expands into full customer-facing response
 
+## Tone Varies Naturally
+- Dan's tone is **not robotic or consistent** — it shifts depending on context
+- Sometimes he's direct and to the point, sometimes sarcastic, sometimes more personal and warm
+- This variation is more human than responding the same way every time
+- Don't lock into one consistent register — match the energy of the conversation
+
+## Welcoming / "You're Not a Bother" Tone
+- Dan doesn't want customers to feel like they're bothering the team
+- If a customer apologizes for reaching out ("hey, it's me again, you're probably worn out"), respond warmly: "Hey, that's our job"
+- Close with something like "if there's anything else we can help with, let us know" — but **don't use it every time**
+- Use it when it feels natural, especially when a customer seems hesitant
+- Never use it robotically in every single response
+
+## Training Style Note
+- Dan's most valuable training input is stream-of-consciousness verbal brain dumps
+- He prefers to talk through his thinking (chain of thought) rather than type carefully crafted instructions
+- His tangents and reasoning process are where the real knowledge lives — capture the logic, not just the answer
+
 ## Philosophy on Customer Service
 - "80% good is 100% better" than no response
 - Wants every customer to get a response "within a reasonable amount of time, like 30 minutes"
