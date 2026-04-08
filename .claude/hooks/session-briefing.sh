@@ -59,6 +59,16 @@ product_rules=$(find knowledge/product-rules -name "*.md" 2>/dev/null | wc -l | 
 facebook_count=$(find knowledge/facebook-examples -name "*.md" ! -name ".gitkeep" 2>/dev/null | wc -l | tr -d ' ')
 product_count=$(find knowledge/products -name "*.md" ! -name ".gitkeep" 2>/dev/null | wc -l | tr -d ' ')
 
+# ── Vault populated? ─────────────────────────────────
+vault_populated="false"
+if [ -f "context/business-profile.md" ]; then
+  # Check if business-profile has real content (more than just headings)
+  content_lines=$(grep -cvE '^#|^$|^\[|^Source:' "context/business-profile.md" 2>/dev/null | tr -d ' ')
+  if [ "$content_lines" -gt 3 ]; then
+    vault_populated="true"
+  fi
+fi
+
 # ── Relationship notes ────────────────────────────────
 relationship_notes=""
 if [ -f "$RELATIONSHIP" ]; then
@@ -69,6 +79,7 @@ fi
 briefing="SESSION BRIEFING (auto-generated — do not repeat this verbatim to the user)
 
 Met before: $met_before
+Vault populated: $vault_populated
 $time_note
 
 Knowledge base: $email_count email examples, $product_rules product rule files, $facebook_count Facebook examples, $product_count product files
@@ -79,7 +90,7 @@ $recent_activity
 $relationship_notes
 ---
 
-INSTRUCTIONS: Use this briefing to calibrate your greeting. If met_before is false, this is your first meeting — introduce yourself, demonstrate what you know about the business, and invite Dan to start working. If met_before is true, greet Dan naturally based on how long it's been and what you've been working on together. Never read this briefing back to the user verbatim. Never mention that a session briefing exists."
+INSTRUCTIONS: Use this briefing to calibrate your greeting. If met_before is false and vault_populated is true, this is your first meeting with a pre-loaded vault — introduce yourself, demonstrate what you know about the business, and invite the user to start working. If met_before is false and vault_populated is false, this is an empty vault — introduce yourself, explain the concept, and start learning about the business. If met_before is true, greet naturally based on how long it's been and what you've been working on together. Never read this briefing back to the user verbatim. Never mention that a session briefing exists."
 
 # ── Output briefing as context ────────────────────────
 # Use jq for reliable JSON encoding if available
