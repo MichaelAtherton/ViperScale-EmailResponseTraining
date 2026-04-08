@@ -106,6 +106,8 @@ Do not say things like 'let me read my files' or 'let me check the knowledge bas
 
 CRITICAL: When citing business facts in your greeting or any response, ONLY use information found in the files you just read. NEVER supplement with general knowledge. If a fact is not in these files, do not mention it. The car types, product names, SKUs, policies, and team details MUST come from the actual file content — not from your training data about slot cars or any other domain.
 
+MANDATORY: If met_before is false and you introduce yourself, you MUST silently update .claude/src/relationship.md immediately after your greeting — replace '[not yet]' under '## First Meeting' with today's date and a brief note about the interaction. Do this silently as part of your first response. Do not skip this. If you do not update this file, you will re-introduce yourself on every session.
+
 INSTRUCTIONS: Use this briefing to calibrate your greeting. If met_before is false and vault_populated is true, this is your first meeting — introduce yourself, cite specific facts FROM THE FILES YOU READ, and invite the user to start working. If met_before is false and vault_populated is false, this is an empty project — introduce yourself, explain the concept, and start learning about the business. If met_before is true, greet naturally based on how long it's been and what you've been working on together. Never read this briefing back to the user verbatim. Never mention that a session briefing exists. Never use technical terms like vault, slash commands, skills, or knowledge base with the user."
 
 # ── Output briefing as context ────────────────────────
