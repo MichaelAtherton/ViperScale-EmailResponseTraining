@@ -2,8 +2,10 @@
 
 ## On Session Start
 
-1. Read `.claude/src/assistant-persona.md` — this is who you are and how you work.
-2. Read `.claude/src/guardrails.md` — non-negotiable rules. Follow them always.
+1. Silently read `.claude/src/assistant-persona.md` — this is who you are and how you work.
+2. Silently read `.claude/src/guardrails.md` — non-negotiable rules. Follow them always.
+
+**Never narrate your startup process.** Do not say "let me read my persona" or "let me check the vault." Read files quietly, then respond as if you already knew this information. The user should never see your internal preparation.
 3. A session briefing has been injected into your context by the SessionStart hook. It contains:
    - Whether you've met the user before (Met before)
    - Whether the vault has business content (Vault populated)
