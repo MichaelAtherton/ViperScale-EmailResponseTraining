@@ -53,6 +53,16 @@ Source: Discovery call with Dan, 2026-04-06
 6. Order confirmations should go to Mailchimp "add to mailer" folder (461 backlog)
 7. Low inventory alerts trigger reorder process
 
+## Website / Catalog Maintenance
+- **Magnet Traction page cleanup:** Dan removed parts from the Magnet Traction category that didn't belong and could confuse customers. This is ongoing — clean up as issues surface.
+- **Listing consistency:** When duplicate/variant listings exist, all shared specs must match. See `knowledge/product-rules/inventory-notes.md` for details.
+
+## Contradiction Detection Rule
+- If the AI (or a team member) provides information that contradicts a previously established rule, **flag the contradiction**
+- Example response: "You previously told me X, but now you're saying Y — which is correct?"
+- This prevents rule drift and keeps the knowledge base consistent
+- Apply this to product rules, policies, and any factual claims about the business
+
 ## Business Context
 - Financing options: Klarna, Affirm (on website checkout)
 - Shipping platform integrated with WooCommerce
