@@ -338,7 +338,67 @@ fi
 echo ""
 
 # ─────────────────────────────────────────────
-echo "8. GIT STATUS"
+echo "8. RELATIONSHIP SYSTEM"
+echo "─────────────────────────────────────────"
+
+# Relationship file
+if [ -f ".claude/src/relationship.md" ]; then
+  if [ -s ".claude/src/relationship.md" ]; then
+    pass ".claude/src/relationship.md exists and non-empty"
+  else
+    fail ".claude/src/relationship.md exists but empty"
+  fi
+else
+  fail ".claude/src/relationship.md — missing"
+fi
+
+# Session briefing script
+briefing_script=".claude/hooks/session-briefing.sh"
+if [ -f "$briefing_script" ]; then
+  if [ -x "$briefing_script" ]; then
+    pass "session-briefing.sh — exists and executable"
+  else
+    fail "session-briefing.sh — exists but NOT executable"
+  fi
+  if head -1 "$briefing_script" | grep -q "^#!/bin/bash"; then
+    pass "session-briefing.sh — has bash shebang"
+  else
+    fail "session-briefing.sh — missing #!/bin/bash shebang"
+  fi
+  if grep -q "python" "$briefing_script"; then
+    fail "session-briefing.sh — contains python dependency"
+  else
+    pass "session-briefing.sh — no python dependency"
+  fi
+else
+  fail "session-briefing.sh — missing"
+fi
+
+# Settings.json references session-briefing
+if grep -q "session-briefing.sh" .claude/settings.json; then
+  pass "settings.json has SessionStart hook for session-briefing.sh"
+else
+  fail "settings.json missing SessionStart hook for session-briefing.sh"
+fi
+
+# Dry run — verify output
+output=$(cd "$VAULT_ROOT" && CLAUDE_PROJECT_DIR="$VAULT_ROOT" bash .claude/hooks/session-briefing.sh < /dev/null 2>/dev/null)
+if [ -n "$output" ]; then
+  if echo "$output" | python3 -c "import sys,json; json.load(sys.stdin)" 2>/dev/null || \
+     echo "$output" | python -c "import sys,json; json.load(sys.stdin)" 2>/dev/null; then
+    pass "session-briefing.sh outputs valid JSON (dry run)"
+  elif echo "$output" | grep -q "SESSION BRIEFING"; then
+    pass "session-briefing.sh outputs plain text briefing (jq not available)"
+  else
+    fail "session-briefing.sh output is neither valid JSON nor expected plain text"
+  fi
+else
+  fail "session-briefing.sh produced no output"
+fi
+echo ""
+
+# ─────────────────────────────────────────────
+echo "9. GIT STATUS"
 echo "─────────────────────────────────────────"
 
 if command -v git >/dev/null 2>&1; then
@@ -361,7 +421,7 @@ fi
 echo ""
 
 # ─────────────────────────────────────────────
-echo "9. HOOK LOGIC (dry run)"
+echo "10. HOOK LOGIC (dry run)"
 echo "─────────────────────────────────────────"
 
 # Test auto-commit directory matching logic
