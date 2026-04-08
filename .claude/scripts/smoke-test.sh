@@ -348,7 +348,7 @@ if [ -f ".claude/src/relationship.md" ]; then
   else
     fail ".claude/src/relationship.md exists but empty"
   fi
-  if head -1 ".claude/src/relationship.md" | grep -q "^---"; then
+  if grep -q "^---" ".claude/src/relationship.md"; then
     pass ".claude/src/relationship.md has YAML frontmatter"
   else
     fail ".claude/src/relationship.md missing YAML frontmatter"

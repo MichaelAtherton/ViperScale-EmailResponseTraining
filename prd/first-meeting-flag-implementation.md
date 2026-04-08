@@ -32,9 +32,11 @@ Replace the LLM-dependent first meeting flag with a deterministic Stop hook. Con
 
 ### New Content
 ```markdown
+<!-- SYSTEM MANAGED — DO NOT EDIT THIS SECTION -->
 ---
 first_met: null
 ---
+<!-- END SYSTEM MANAGED — Add your notes below -->
 
 ## How Dan Likes to Work
 [learning]
@@ -47,6 +49,7 @@ first_met: null
 - Removed `# Marsh & Dan` heading (unnecessary — the file's purpose is defined by its location)
 - Removed `## First Meeting` section (replaced by `first_met` in frontmatter)
 - Added YAML frontmatter with `first_met: null`
+- Added HTML guard comments above and below frontmatter — visible to Claude as text, prevents LLM from editing the machine-managed section
 - Markdown body sections unchanged
 
 ---
