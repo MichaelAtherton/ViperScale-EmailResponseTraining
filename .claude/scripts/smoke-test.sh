@@ -341,12 +341,22 @@ echo ""
 echo "8. RELATIONSHIP SYSTEM"
 echo "─────────────────────────────────────────"
 
-# Relationship file
+# Relationship file — YAML frontmatter format
 if [ -f ".claude/src/relationship.md" ]; then
   if [ -s ".claude/src/relationship.md" ]; then
     pass ".claude/src/relationship.md exists and non-empty"
   else
     fail ".claude/src/relationship.md exists but empty"
+  fi
+  if head -1 ".claude/src/relationship.md" | grep -q "^---"; then
+    pass ".claude/src/relationship.md has YAML frontmatter"
+  else
+    fail ".claude/src/relationship.md missing YAML frontmatter"
+  fi
+  if grep -q "^first_met:" ".claude/src/relationship.md"; then
+    pass ".claude/src/relationship.md has first_met field"
+  else
+    fail ".claude/src/relationship.md missing first_met field"
   fi
 else
   fail ".claude/src/relationship.md — missing"
@@ -381,7 +391,31 @@ else
   fail "settings.json missing SessionStart hook for session-briefing.sh"
 fi
 
-# Dry run — verify output
+# First meeting check script
+fmc_script=".claude/hooks/first-meeting-check.sh"
+if [ -f "$fmc_script" ]; then
+  if [ -x "$fmc_script" ]; then
+    pass "first-meeting-check.sh — exists and executable"
+  else
+    fail "first-meeting-check.sh — exists but NOT executable"
+  fi
+  if head -1 "$fmc_script" | grep -q "^#!/bin/bash"; then
+    pass "first-meeting-check.sh — has bash shebang"
+  else
+    fail "first-meeting-check.sh — missing #!/bin/bash shebang"
+  fi
+else
+  fail "first-meeting-check.sh — missing"
+fi
+
+# Settings.json has Stop hook
+if grep -q "first-meeting-check.sh" .claude/settings.json; then
+  pass "settings.json has Stop hook for first-meeting-check.sh"
+else
+  fail "settings.json missing Stop hook for first-meeting-check.sh"
+fi
+
+# Dry run — verify briefing output
 output=$(cd "$VAULT_ROOT" && CLAUDE_PROJECT_DIR="$VAULT_ROOT" bash .claude/hooks/session-briefing.sh < /dev/null 2>/dev/null)
 if [ -n "$output" ]; then
   if echo "$output" | python3 -c "import sys,json; json.load(sys.stdin)" 2>/dev/null || \

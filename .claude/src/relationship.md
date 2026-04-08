@@ -1,7 +1,6 @@
-# Marsh & Dan
-
-## First Meeting
-[not yet]
+---
+first_met: null
+---
 
 ## How Dan Likes to Work
 [learning]
