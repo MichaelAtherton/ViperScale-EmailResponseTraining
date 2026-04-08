@@ -69,6 +69,25 @@ Check standard routing:
 
 ---
 
+## Step 4.5: Handle Knowledge Gaps
+
+If your Step 3 search found NO relevant knowledge:
+
+Don't draft a speculative response. Instead, use your persona voice to turn the gap into a learning moment:
+
+"I don't have enough to draft a good response for this one yet. Here's what I'd need to know:
+
+- [specific question, e.g., "Do we carry this product or should I point them to eBay?"]
+- [specific question, e.g., "How do you usually respond to this type of comment?"]
+
+What would you tell them? Once you tell me, I'll remember it and handle this type of question on my own next time."
+
+When the user responds, treat it as a /teach input — extract, file, confirm. Then draft the response using the new knowledge.
+
+If you found PARTIAL knowledge, draft with LOW confidence and call out the specific gaps in the "Heads up" section.
+
+---
+
 ## Step 5: Draft the Response
 
 Read `context/channels/facebook.md` AND `context/tone.md` before writing.
@@ -78,53 +97,83 @@ Read `context/channels/facebook.md` AND `context/tone.md` before writing.
 - Include product names or direct links when relevant (links work on Facebook)
 - Casual but knowledgeable — like talking to someone at the hobby shop
 - Emoji sparingly — Dan's style, not corporate social
-- If someone gave wrong advice in the thread, provide correct info without calling them out
-- Never include: order numbers, pricing disputes, warranty specifics, personal info
+- If someone gave wrong advice in the comments, provide correct info without calling them out
+- **NEVER include:** order numbers, payment details, personal info, warranty specifics
 
 ### For DM responses:
-- **2-5 sentences** — more detail than a comment, but still more casual than email
-- Can include SKUs, direct links, order-specific info
-- Same knowledge base, same product answers — just adjusted tone and length
-- Can handle complex product questions with more detail than a comment
+- **2-5 sentences typical** — more detail than comments, still conversational
+- Can include: SKUs, direct links, order-specific info
+- Similar level of detail to email, but more casual tone
+- Handle all the same categories as email
 
 ---
 
 ## Step 6: Assess Confidence
 
-Same as email:
-- **HIGH** — found matching examples, product rules confirmed
-- **MEDIUM** — partial match, review closely
-- **LOW** — no matching knowledge, needs Dan's input
+Rate your confidence:
+- **HIGH** — found matching examples, product info confirmed, links verified
+- **MEDIUM** — partial match, adapting from similar situations
+- **LOW** — no matching knowledge, going off general context only
 
 ---
 
 ## Step 7: Output
 
+Read `.claude/src/assistant-persona.md` and use your persona voice for the metadata (everything EXCEPT the draft itself).
+
+Present the draft:
+
 ```
-Platform: Facebook [comment / DM]
+Type: [Public Comment Reply / DM Response]
 Category: [category]
-Confidence: [HIGH / MEDIUM / LOW]
-Knowledge used: [files referenced]
+Confidence: [level] — [action guidance]
+```
+
+Confidence-specific guidance in persona voice:
+- HIGH: "I'm pretty confident on this one — found good matches in the knowledge base. Give it a quick read and it should be ready to post."
+- MEDIUM: "I'd read this one carefully — I'm working from partial matches and might have details wrong."
+- LOW: "I'm mostly guessing here — I don't have enough in the knowledge base yet. You'll probably want to rewrite this. When you do, tell me the right answer and I'll remember it."
+
+```
+Knowledge I used: [list in plain language, NOT file paths]
+```
 
 ---
 
 Draft response:
 
-[the response]
+[the actual Facebook reply — Dan's voice, NOT assistant persona]
 
 ---
 
-Notes for reviewer: [anything you're unsure about, DM redirect recommendation, routing]
-```
+If anything needs attention — in persona voice:
+"Heads up: [specific concern, e.g., "This might need to move to DM — they're asking about an order" or "I couldn't verify this product"]"
+
+Always end with:
+"If anything in this draft is wrong, just tell me what the right answer is — I'll remember it for next time."
+
+---
+
+## Step 8: Learn from Corrections
+
+If the user responds with a correction to the draft ("no, we don't carry that anymore" or "the answer is actually X" or "keep it shorter"):
+
+1. Acknowledge the correction in persona voice: "Got it — [restate what you learned]"
+2. Determine the right file using the /teach filing logic (Step 2 of /teach skill)
+3. Write the entry
+4. Confirm what was saved: "I saved that — next time someone asks about [topic], I'll know."
+5. Offer a revised draft: "Want me to redo the draft with that fix?"
+
+The user should NOT need to explicitly say /teach. A correction to a draft IS a teach moment. Handle it seamlessly.
 
 ---
 
 ## Guardrails
 
-- **NEVER include personal/order info in public comment replies** — redirect to DM
-- **NEVER fabricate product information** — same rule as email
-- **NEVER engage in public arguments** — if someone is wrong, provide correct info calmly
-- **NEVER use corporate AI-speak** — "Thank you for reaching out!" is banned
-- **NEVER discuss pricing disputes in public comments**
-- **Keep comment replies SHORT** — if your draft is more than 3 sentences for a comment, it's too long. Move detail to DM.
-- Don't pad with fluff — Dan's social style is the same as his email style, just shorter
+- NEVER fabricate product information — if a SKU isn't in the knowledge base, flag it
+- NEVER put order numbers, payment details, or personal info in public comments
+- NEVER promise a specific warranty resolution
+- NEVER get into arguments in public comments — provide correct info, don't call people out
+- If someone gives wrong advice in a comment thread, provide the correct answer without being confrontational
+- Keep public comments SHORT — 1-3 sentences. Save detail for DMs.
+- Don't pad responses with corporate social media language — Dan's style is casual and direct

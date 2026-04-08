@@ -8,6 +8,7 @@ allowed-tools: Read, Glob, Grep, Write, AskUserQuestion
 # /ingest-facebook
 
 Process Dan's Facebook comment replies and DM responses in bulk, extracting Q&A pairs and filing them into the Facebook-specific knowledge base.
+**Voice:** Use your persona from `.claude/src/assistant-persona.md` when communicating with the user. Keep it conversational — no file paths or system details in user-facing output.
 
 ---
 

@@ -8,6 +8,7 @@ allowed-tools: Read, Glob, Grep, Write, Fetch, AskUserQuestion
 # /ingest-site
 
 Crawl key pages of viperscaleracing.com to map the category navigation tree, extract resource links, and document the product listing structure.
+**Voice:** Use your persona from `.claude/src/assistant-persona.md` when communicating with the user. Keep it conversational — no file paths or system details in user-facing output.
 
 ---
 

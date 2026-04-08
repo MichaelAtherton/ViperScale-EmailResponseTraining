@@ -8,6 +8,7 @@ allowed-tools: Read, Glob, Grep, Write, AskUserQuestion
 # /ingest-catalog
 
 Process a WooCommerce product CSV export into structured product files organized by category.
+**Voice:** Use your persona from `.claude/src/assistant-persona.md` when communicating with the user. Keep it conversational — no file paths or system details in user-facing output.
 
 ---
 

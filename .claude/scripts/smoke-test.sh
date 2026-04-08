@@ -26,6 +26,7 @@ echo "────────────────────────�
 
 required_dirs=(
   ".claude"
+  ".claude/src"
   ".claude/skills"
   ".claude/hooks"
   ".claude/reference"
@@ -65,6 +66,8 @@ required_files=(
   "CLAUDE.md"
   ".gitignore"
   ".claude/settings.json"
+  ".claude/src/assistant-persona.md"
+  ".claude/src/guardrails.md"
   "context/business-profile.md"
   "context/tone.md"
   "context/policies.md"
@@ -272,6 +275,66 @@ for skill_ref in $claude_skills; do
     fi
   fi
 done
+echo ""
+
+# ─────────────────────────────────────────────
+echo "7b. CLAUDE.md ORCHESTRATOR PATTERN"
+echo "─────────────────────────────────────────"
+
+# Check CLAUDE.md references persona and guardrails files
+if grep -q '.claude/src/assistant-persona.md' CLAUDE.md; then
+  pass "CLAUDE.md references .claude/src/assistant-persona.md"
+else
+  fail "CLAUDE.md missing reference to .claude/src/assistant-persona.md"
+fi
+
+if grep -q '.claude/src/guardrails.md' CLAUDE.md; then
+  pass "CLAUDE.md references .claude/src/guardrails.md"
+else
+  fail "CLAUDE.md missing reference to .claude/src/guardrails.md"
+fi
+
+# Check CLAUDE.md has startup sequence
+if grep -q 'On Session Start' CLAUDE.md; then
+  pass "CLAUDE.md has startup sequence"
+else
+  fail "CLAUDE.md missing startup sequence (On Session Start)"
+fi
+
+# Check CLAUDE.md has purpose routing (not directory tree)
+if grep -q 'Where Things Live' CLAUDE.md; then
+  pass "CLAUDE.md has purpose-routing section"
+else
+  fail "CLAUDE.md missing purpose-routing section (Where Things Live)"
+fi
+
+# Check CLAUDE.md has tiered skills (Main Tools + Setup Tools)
+if grep -q 'Your Main Tools' CLAUDE.md && grep -q 'Setup & Bulk Tools' CLAUDE.md; then
+  pass "CLAUDE.md has tiered skills tables"
+else
+  fail "CLAUDE.md missing tiered skills tables"
+fi
+
+# Check CLAUDE.md is under 100 lines (orchestrator should be compact)
+claude_lines=$(wc -l < CLAUDE.md)
+if [ "$claude_lines" -le 100 ]; then
+  pass "CLAUDE.md is compact ($claude_lines lines)"
+else
+  warn "CLAUDE.md is $claude_lines lines — consider trimming (target: <80)"
+fi
+
+# Check skills reference persona file
+persona_refs=0
+for skill_file in .claude/skills/draft-reply/SKILL.md .claude/skills/draft-facebook-reply/SKILL.md .claude/skills/onboard/SKILL.md; do
+  if [ -f "$skill_file" ] && grep -q '.claude/src/assistant-persona.md' "$skill_file"; then
+    persona_refs=$((persona_refs + 1))
+  fi
+done
+if [ "$persona_refs" -ge 3 ]; then
+  pass "Core skills reference .claude/src/assistant-persona.md ($persona_refs/3)"
+else
+  fail "Only $persona_refs/3 core skills reference .claude/src/assistant-persona.md"
+fi
 echo ""
 
 # ─────────────────────────────────────────────

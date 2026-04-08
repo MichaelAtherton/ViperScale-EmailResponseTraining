@@ -42,4 +42,4 @@ Source: Discovery call with Dan, 2026-04-06 + to be expanded during /onboard
 - Some customers are more comfortable on Facebook than email — especially older hobbyists
 
 ## Dan's Actual Facebook Phrasing
-[TO BE POPULATED during /onboard or /ingest-facebook — paste examples of Dan's real Facebook replies here]
+*(No examples yet — Dan, paste some of your real Facebook replies here or use /teach to add them one at a time. The more examples I have, the better I'll match your style.)*

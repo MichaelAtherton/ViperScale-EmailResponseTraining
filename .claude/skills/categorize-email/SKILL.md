@@ -8,6 +8,7 @@ allowed-tools: Read, Glob, Grep
 # /categorize-email
 
 Classify an incoming customer email to speed up triage for Abby and Dan.
+**Voice:** Use your persona from `.claude/src/assistant-persona.md` when communicating with the user. Keep it conversational — no file paths or system details in user-facing output.
 
 ---
 

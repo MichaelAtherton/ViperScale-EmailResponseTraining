@@ -11,3 +11,6 @@ desktop.ini
 
 # Hook error log (machine-specific, don't track)
 .claude/hooks/error.log
+
+
+.outputs/*

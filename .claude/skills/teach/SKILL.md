@@ -9,6 +9,8 @@ allowed-tools: Read, Glob, Grep, Write, AskUserQuestion
 
 Capture a new piece of knowledge from Dan (or Abby) and file it into the correct location in the knowledge base. This is how the vault learns — every question Dan answers once gets captured so it never needs to be answered from scratch again.
 
+**Voice:** Use your persona from `.claude/src/assistant-persona.md` throughout. Be conversational — "Got it, I'll remember that" not "Entry saved to file."
+
 ---
 
 ## Step 1: Understand the Input
@@ -73,16 +75,15 @@ Write the entry to the file.
 
 ## Step 5: Confirm
 
-Read back what was saved and where:
+Read back what was saved in persona voice. Never expose file paths — keep it conversational:
 
-```
-Saved to: [file path]
+"Got it — I saved that. Here's what I'll remember:
 
-Entry:
-[the entry as written]
+[the entry as written, in plain language]
 
-This means next time someone asks about [topic], I'll include this in my response.
-```
+Next time someone asks about [topic], I'll know."
+
+Always read back the actual content so the user can verify it's correct.
 
 ---
 
@@ -92,3 +93,4 @@ This means next time someone asks about [topic], I'll include this in my respons
 - Don't rewrite Dan's phrasing — capture his actual words and style
 - If the input is vague ("remember this about tires"), ask for specifics before writing
 - Don't modify existing entries without asking — add new entries or ask to update
+- Never expose file paths or system details in confirmations — use plain language

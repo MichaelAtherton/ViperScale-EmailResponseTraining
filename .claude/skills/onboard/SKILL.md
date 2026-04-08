@@ -11,15 +11,45 @@ Walk the client through populating their vault via a guided conversation. No for
 
 > **This skill is designed to be run once during initial setup, with the client (or someone who knows the business) present.** It can be re-run to fill gaps or update information.
 
+**Voice:** Use your persona from `.claude/src/assistant-persona.md` throughout this conversation. Be warm, conversational, curious. Ask one question at a time. React to answers before asking the next question ("Got it — that makes sense" or "Interesting, so if someone asks about that, you'd..."). Never feel like a questionnaire.
+
 ---
 
 ## Before Starting
 
-1. Check what's already populated by reading `context/business-profile.md`, `context/tone.md`, `context/policies.md`, and `context/channels/facebook.md`
-2. If files already have content (not just templates), note what's filled and skip those questions
-3. Tell the client what to expect:
+1. Read `.claude/src/assistant-persona.md` — use your persona throughout this conversation.
+2. Check what's already populated:
+   - Read context/business-profile.md, context/tone.md, context/policies.md, context/channels/facebook.md, context/website-navigation.md
+   - Scan knowledge/product-rules/ and knowledge/email-examples/ for existing entries
+   - Note what's filled, what's skeletal, and what's empty
+3. Greet the user using your persona. Explain the concept:
 
-> "I'm going to ask you about your business, how you talk to customers, and what your customers typically ask about. This usually takes 30-60 minutes. I'll be saving everything as I go, so we can stop anytime and pick up later. Ready?"
+If vault is PRE-POPULATED (AIRL did discovery work):
+> "[Persona greeting]. Michael already set me up with a lot about your business — your team, your policies, how you talk to customers, even some product rules. Let me show you what I know and you can tell me if anything's off. Then we'll do some practice rounds with real customer emails. Sound good?"
+
+If vault is EMPTY (client is self-onboarding):
+> "[Persona greeting]. Here's how this works — I'm going to learn how your business runs and how you talk to your customers. Once I know that, you can paste me any customer email or Facebook message and I'll draft a response in your voice. The more you teach me, the better I get — think of me like a new hire with perfect memory.
+>
+> This takes about 30 minutes. I'll save everything as we go, so we can stop anytime and pick up where we left off. Ready?"
+
+---
+
+## If Vault Is Pre-Populated: Validate Before Expanding
+
+When AIRL has already extracted knowledge from a discovery call, DON'T re-ask those questions. Instead:
+
+1. Summarize what you know — hit the highlights from each context file:
+   - "Here's what I know about your business: [2-3 key facts from business-profile.md]"
+   - "Here's how I understand you talk to customers: [key traits from tone.md]"
+   - "Here's what I know about your policies: [key points from policies.md]"
+
+2. After each summary, ask: "Anything wrong or missing?"
+
+3. Capture corrections via the same /teach logic (extract, file, confirm).
+
+4. Then skip to Section 4 (What Customers Ask About) — this is where the client adds knowledge the discovery call didn't cover.
+
+This flow should feel like: "Let me show you what I learned, you tell me where I'm wrong, then let's practice."
 
 ---
 
@@ -98,7 +128,7 @@ For each question type they describe:
 
 **Follow the format in** `.claude/reference/email-qa-format.md` for Q&A pairs.
 
-**Aim for 10-15 Q&A pairs in the first session** across the major categories. Don't try to capture everything — `/teach` handles ongoing learning after onboarding, and the ingestion skills can process bulk data later. Getting 10 solid examples with Dan's real phrasing is more valuable than 30 rushed ones.
+**Coverage target:** Try to get at least one Q&A example in each of the 6 categories (product questions, order issues, warranty/returns, stock availability, pre-sales, setup support). Breadth matters more than depth in the first session — it means I can attempt a draft for ANY email type, even if I need the client to correct it. Depth comes from /teach over time.
 
 After the conversational capture, ask about bulk data sources:
 
@@ -149,7 +179,7 @@ Present the draft to the client. Then:
 After testing, summarize what was captured:
 
 ```
-Onboarding complete! Here's what we set up:
+Here's where we are:
 
 Business profile: ✓ [company name, team, channels]
 Tone & style: ✓ [email + Facebook]
@@ -159,14 +189,13 @@ Response examples: Y email examples, Z Facebook examples
 Resource links: W links captured
 Website navigation: [populated / needs site crawl]
 
-What's still needed:
+Still needed:
 - [list any gaps identified during testing]
 - [suggest running specific ingestion skills for bulk data]
-- [remind about /teach for ongoing learning]
 
 You're ready to start using /draft-reply and /draft-facebook-reply
 for real customer messages. Every time you correct a draft or teach
-me something new with /teach, the system gets smarter.
+me something new, I get smarter. The more you use me, the better I get.
 ```
 
 ---
