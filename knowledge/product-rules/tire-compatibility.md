@@ -35,6 +35,23 @@ Source: Discovery call with Dan, 2026-04-06
 - Dan's standard response: "Here's a link to all of the rear tires that we offer for the [car type]"
 - If a tire is out of stock, recommend signing up for the **in-stock notifier** and note "we restock weekly"
 
+## Chassis We Don't Stock Parts For (HP7, HP2, Curvehugger, Aurora AX, etc.)
+
+Source: Dan, 2026-04-16
+
+**Rule:** If a customer asks about tires (or other parts) for a chassis that doesn't have its own category on the website, the answer is: **"Unfortunately, we don't offer anything for the [chassis]."**
+
+**Do NOT:**
+- Hedge with "we might have something that could fit"
+- Go hunt for cross-compatible tires from other lines
+- Leave the door open for follow-up ("well, what might fit?")
+
+**Why:** Low-frequency questions aren't worth the research time. If the research comes up empty, you land at the same "we don't have anything" answer anyway — but after wasting time. A clean no prevents the same question recurring and matches what the customer would find searching the site themselves.
+
+**Applies to:** Any chassis without a dedicated category on viperscaleracing.com — HP7, HP2, Curvehugger, Aurora AX, and similar older/niche chassis.
+
+**How to check:** If "Shop by Car Type" doesn't have a category for it, use this response.
+
 ## Sponge Tires for Outlaw
 - Sponge tires come on Outlaw cars but **Viper does not sell them separately**
 - These are **special order items** from their supplier
