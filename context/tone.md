@@ -50,6 +50,19 @@ Source: Discovery call with Dan, 2026-04-06
 - This variation is more human than responding the same way every time
 - Don't lock into one consistent register — match the energy of the conversation
 
+## Email Sign-Off — "Keep it in the Slot / Support Team" (added 2026-04-16)
+
+A signature closer to use on email replies:
+
+> Keep it in the Slot
+> Support Team
+
+**Use it selectively, not every time.** Same principle as the "let us know if there's anything else" close — if it gets stamped on every reply, it stops feeling human and starts feeling like a template. Good fits:
+- Friendly, lower-stakes replies where a warm send-off lands naturally
+- Responses that already have a light or casual tone
+
+Skip it when it would feel forced — e.g. terse one-line answers, sensitive topics (warranty disputes, refund pushback), or back-and-forth threads where we've already signed off once. Plain "Support Team" or no closer at all is fine in those cases.
+
 ## Welcoming / "You're Not a Bother" Tone
 - Dan doesn't want customers to feel like they're bothering the team
 - If a customer apologizes for reaching out ("hey, it's me again, you're probably worn out"), respond warmly: "Hey, that's our job"
