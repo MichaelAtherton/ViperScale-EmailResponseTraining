@@ -37,3 +37,10 @@ Source: Discovery call with Dan, 2026-04-06
 ## Chassis Interchangeability Notes
 - The timing system is a **universal part** — works on Viper tracks, AFX track, any track
 - Website is organized by car type to make compatibility clear: Shop by Car Type → [type] → category
+
+## Viper Chassis ↔ Tyco 440X2 Compatibility
+Source: /teach — Dan, 2026-04-16
+
+- **Tyco 440X2 bodies on a Viper chassis:** works **only if the body is wide-pan style.** Narrow Tyco bodies will NOT fit a Viper chassis.
+- Other parts (chassis components, electrical, wheels/tires, gears, etc.) cross-compatibility with Tyco: **not yet confirmed — Dan to follow up.** Do not claim cross-compat on non-body parts until this is documented.
+- When a customer asks the general "are Viper cars interchangeable with Tyco" question: lead with the wide-pan body rule, and be honest that other parts need to be checked case-by-case.
