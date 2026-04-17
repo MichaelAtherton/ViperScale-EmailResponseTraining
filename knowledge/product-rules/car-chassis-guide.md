@@ -38,6 +38,14 @@ Source: Discovery call with Dan, 2026-04-06
 - The timing system is a **universal part** — works on Viper tracks, AFX track, any track
 - Website is organized by car type to make compatibility clear: Shop by Car Type → [type] → category
 
+## Aurora AFX G-Plus — Armature Compatibility
+Source: /teach — Dan, 2026-04-16
+
+- **Any Tyco-timed armature will work in the original Aurora AFX G-Plus**, but the **pinion side of the armature shaft needs to be trimmed** to fit.
+- **V1 / Super G+ (SG+) armatures will NOT work** in an Aurora AFX G-Plus — those are **endbell timed**, which is a different timing style and not compatible.
+- When a customer asks about armatures for an AFX G-Plus: confirm they mean the **original Aurora G-Plus** (not Mega G+ or Super G+). Point them at Tyco-timed armatures with the trim caveat. Do not send them to Super G+ armatures.
+- Useful shorthand for diagnosing which "G-Plus" a customer has: if they mention Super G+ armatures and ask about compatibility, they likely have the original Aurora G-Plus (the two are commonly confused by name).
+
 ## Viper Chassis ↔ Tyco 440X2 Compatibility
 Source: /teach — Dan, 2026-04-16
 
