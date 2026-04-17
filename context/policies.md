@@ -50,3 +50,10 @@ Source: Discovery call with Dan, 2026-04-06
 - Viper does NOT provide support for third-party software/OS issues (e.g., Windows S-mode)
 - For OS issues: provide a link to the fix but don't troubleshoot
 - For timing system software: link to the vendor's tech support page and documentation
+
+## Never Redirect Customers to Other Retailers
+- **Do not tell customers to try eBay, Amazon, or any other online retailer** — even for products Viper doesn't carry, even for OEM/vintage parts
+- Source: Dan, 2026-04-16
+- When Viper doesn't carry something, the clean answer is simply "we don't carry it" / "we don't make it" — no alternative retailer suggestion
+- This supersedes older "best bet's eBay" phrasing that appears in some legacy examples
+- If an in-house alternative exists (e.g., a Viper Tyco offering for a customer asking about vintage Tyco parts), that's fine to offer
