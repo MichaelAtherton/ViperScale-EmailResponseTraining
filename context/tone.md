@@ -24,7 +24,7 @@ Source: Discovery call with Dan, 2026-04-06
 - **Generic answers** — hates "the rear tire should be on the site" type responses; wants specific product links
 
 ## Dan's Actual Phrasing Examples
-- On products not carried: "best bet's going to be eBay"
+- On products not carried: "unfortunately, we don't carry those" / "we don't make them" — **never redirect to eBay or other retailers** (rule set by Dan 2026-04-16; see `context/policies.md`)
 - On tire compatibility: "the only options we have for rear tires are these two"
 - On front tires not existing: "we don't make them"
 - On special orders: "hey, they're special order. They're X amount of dollars. How many pair would you like?"
