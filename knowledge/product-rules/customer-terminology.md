@@ -39,6 +39,12 @@ Marshall consults this file *before* querying the catalog. If the customer used 
 - **Source:** `context/tone.md`
 - **Notes:** Autocorrect / phonetic misspelling. Refers to the TrackMate timing system.
 
+### "AFX G-Plus" / "Aurora G-Plus" / "Tomy G-Plus" / "G-Plus" / "G Plus"
+
+- **Maps to:** Category 522 (Aurora G-Plus) — parent: Aurora/Tomy/AFX (id=36)
+- **Source:** Customer email 2026-04-19 asked "armature for e AFX G Plus." CLI returned `chassis_not_found` because the category is named "Aurora G-Plus" on the site, not "AFX G-Plus." Council deliberation (see `doc/design/ambiguous-lookup-response.md`) determined this is a chassis-family alias issue, not a clean-no.
+- **Notes:** Category currently has 2 products (Motor Magnets, Pickup Shoes — no armatures). Customers call this chassis by all three brand prefixes because Aurora was acquired by Tomy/AFX; the product naming didn't update when the brand did. Do NOT confuse with "Mega G+" (id=89) or "Super G+" (id=69) — different chassis. Seeded in `cache.py` SEED_ALIASES on 2026-04-20.
+
 ---
 
 _Additional aliases added via `/teach` as Dan confirms them or as they're observed in real customer messages. Do NOT add entries based on assumption — only verified terminology._
