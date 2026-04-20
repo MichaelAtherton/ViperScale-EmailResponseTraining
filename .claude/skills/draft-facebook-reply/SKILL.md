@@ -77,7 +77,7 @@ Don't draft a speculative response. Instead, use your persona voice to turn the 
 
 "I don't have enough to draft a good response for this one yet. Here's what I'd need to know:
 
-- [specific question, e.g., "Do we carry this product or should I point them to eBay?"]
+- [specific question, e.g., "Do we carry this product, or is it a clean 'we don't carry it'?"]
 - [specific question, e.g., "How do you usually respond to this type of comment?"]
 
 What would you tell them? Once you tell me, I'll remember it and handle this type of question on my own next time."

@@ -30,7 +30,7 @@ Look for: "X fits Y", "only these tires for Z", SKU references, "this works with
 → File to: `knowledge/product-rules/tire-compatibility.md`, `car-chassis-guide.md`, etc.
 
 ### Products We Don't Carry
-Look for: "we don't carry those", "best bet is eBay", "that's OEM only"
+Look for: "we don't carry those", "that's OEM only", "best bet is eBay" (historical — retired 2026-04-16; still a useful trigger in old transcripts but file per current policy: clean "we don't carry it" with no retailer redirect, per `context/policies.md` §Never Redirect Customers to Other Retailers)
 → File to: `knowledge/product-rules/discontinued-alternatives.md`
 
 ### Special-Order Items

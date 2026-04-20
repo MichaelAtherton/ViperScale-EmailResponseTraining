@@ -17,3 +17,16 @@ desktop.ini
 
 
 .outputs/*
+
+.env*
+
+# WooCommerce Loggs
+.claude/cache/
+.claude/logs/
+
+# Python artifacts
+**/__pycache__/
+**/*.pyc
+**/.venv/
+
+scratch/
