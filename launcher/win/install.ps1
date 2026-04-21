@@ -1,5 +1,5 @@
 #Requires -Version 5.1
-# Enzo — Viper Scale Racing AI Assistant Installer
+# Enzo - Viper Scale Racing AI Assistant Installer
 # Runs user-scope only. No admin rights required.
 
 param(
@@ -32,7 +32,7 @@ function RefreshPath() {
 Clear-Host
 Write-Host ""
 Write-Host "  =======================================================" -ForegroundColor Cyan
-Write-Host "     Enzo — Viper Scale Racing Setup  (v$Version)" -ForegroundColor Cyan
+Write-Host "     Enzo - Viper Scale Racing Setup  (v$Version)" -ForegroundColor Cyan
 Write-Host "  =======================================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "     This will check for and install:"
@@ -183,7 +183,7 @@ if (-not (Test-Path $venvPython)) {
 }
 
 & $venvPip install -r $reqsPath 2>&1 | Out-Null
-if ($LASTEXITCODE -ne 0) { FailExit "pip install failed — check your internet connection and run START-HERE again" }
+if ($LASTEXITCODE -ne 0) { FailExit "pip install failed - check your internet connection and run START-HERE again" }
 
 & $venvPython -c "import requests, dotenv" 2>&1 | Out-Null
 if ($LASTEXITCODE -ne 0) { FailExit "WooCommerce integration imports failed after install" }
@@ -231,7 +231,7 @@ if (-not (Test-Path $envPath)) {
     } until ($consumerKey -match "^ck_")
 
     do {
-        $secureSecret = Read-Host "  Consumer Secret (starts with cs_ — hidden as you type)" -AsSecureString
+        $secureSecret = Read-Host "  Consumer Secret (starts with cs_ - hidden as you type)" -AsSecureString
         $consumerSecret = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
             [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($secureSecret))
         if ($consumerSecret -notmatch "^cs_") {
@@ -239,13 +239,13 @@ if (-not (Test-Path $envPath)) {
         }
     } until ($consumerSecret -match "^cs_")
 
-    $envContent = @"
-WC_BASE_URL=$baseUrl
-WC_CONSUMER_KEY=$consumerKey
-WC_CONSUMER_SECRET=$consumerSecret
-WC_TIMEOUT_SECONDS=15
-"@
-    Set-Content -Path $envPath -Value $envContent -Encoding UTF8
+    $envLines = @(
+        "WC_BASE_URL=$baseUrl",
+        "WC_CONSUMER_KEY=$consumerKey",
+        "WC_CONSUMER_SECRET=$consumerSecret",
+        "WC_TIMEOUT_SECONDS=15"
+    )
+    Set-Content -Path $envPath -Value ($envLines -join "`r`n") -Encoding UTF8
     Write-Host "  OK  Credentials saved" -ForegroundColor Green
     Log "WRITE .env (3 fields)"
 }
@@ -263,7 +263,7 @@ $icoPath = Join-Path $PSScriptRoot "assets\viper.ico"
 if (Test-Path $icoPath) {
     $shortcut.IconLocation = $icoPath
 }
-$shortcut.Description = "Enzo — Viper Scale Racing AI Assistant"
+$shortcut.Description = "Enzo - Viper Scale Racing AI Assistant"
 $shortcut.Save()
 Write-Host "  OK  'Enzo' shortcut added to Desktop" -ForegroundColor Green
 Log "WRITE shortcut Enzo.lnk"
@@ -284,7 +284,7 @@ if ($bashExe) {
     }
     Pop-Location
 } else {
-    Write-Host "  !!  bash not found — cache will build on first use" -ForegroundColor Yellow
+    Write-Host "  !!  bash not found - cache will build on first use" -ForegroundColor Yellow
     Log "WARN bash not in PATH, skipping cache pre-warm"
 }
 
