@@ -30,3 +30,6 @@ desktop.ini
 **/.venv/
 
 scratch/
+
+# Install artifacts (per-machine)
+.install-log.txt
