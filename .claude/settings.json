@@ -7,7 +7,21 @@
       "Bash(git pull:*)",
       "Read(.claude/src/*)",
       "Edit(.claude/src/*)",
-      "Write(.claude/src/*)"
+      "Write(.claude/src/*)",
+      "Bash(bash scripts/wc.sh:*)",
+      "Bash(python -m integrations.woocommerce.cli:*)",
+      "Bash(python3 -m integrations.woocommerce.cli:*)",
+      "Skill(draft-reply)",
+      "Skill(draft-facebook-reply)",
+      "Skill(catalog-lookup)",
+      "Skill(categorize-email)",
+      "Skill(teach)",
+      "Skill(onboard)",
+      "Skill(extract-knowledge)",
+      "Skill(ingest-catalog)",
+      "Skill(ingest-emails)",
+      "Skill(ingest-facebook)",
+      "Skill(ingest-site)"
     ]
   },
   "hooks": {
