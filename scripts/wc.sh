@@ -19,10 +19,13 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VAULT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-# Pick Python: venv first, then system.
+# Pick Python: venv first (Unix then Windows), then system.
 VENV_PY="$VAULT_ROOT/integrations/woocommerce/.venv/bin/python"
+VENV_PY_WIN="$VAULT_ROOT/integrations/woocommerce/.venv/Scripts/python.exe"
 if [[ -x "$VENV_PY" ]]; then
   PY="$VENV_PY"
+elif [[ -x "$VENV_PY_WIN" ]]; then
+  PY="$VENV_PY_WIN"
 else
   # Fall back to python3, then python.
   if command -v python3 >/dev/null 2>&1; then

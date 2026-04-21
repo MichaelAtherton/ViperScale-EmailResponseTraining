@@ -83,14 +83,12 @@ sync_and_push() {
     log_error "rebase failed, falling back to merge"
     git rebase --abort 2>/dev/null
     if ! git pull --no-rebase origin main 2>>"$LOG_FILE"; then
-      log_error "merge also failed for $REL_PATH — local commit saved but not pushed"
+      log_error "merge also failed for $REL_PATH — local commit saved but not synced"
       return 1
     fi
   fi
-  if ! git push -u origin main 2>>"$LOG_FILE"; then
-    log_error "push failed for $REL_PATH — local commit saved but not pushed (check credentials/network)"
-    return 1
-  fi
+  # Push removed for client delivery — commits stay local
+  # Dan's corrections are harvested manually during check-ins
 }
 
 # Check if file has changes
