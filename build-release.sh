@@ -25,6 +25,8 @@ rm -rf "$RELEASE_DIR"/prd
 rm -rf "$RELEASE_DIR"/scratch
 rm -rf "$RELEASE_DIR"/doc
 rm -rf "$RELEASE_DIR"/.obsidian
+rm -rf "$RELEASE_DIR"/docs
+rm -f  "$RELEASE_DIR"/build-release.sh
 rm -f  "$RELEASE_DIR"/scripts/wc-*.sh
 rm -rf "$RELEASE_DIR"/integrations/woocommerce/.venv
 rm -rf "$RELEASE_DIR"/integrations/woocommerce/__pycache__
