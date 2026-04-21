@@ -37,6 +37,11 @@ rm -f  "$RELEASE_DIR"/.claude/hooks/error.log
 rm -f  "$RELEASE_DIR"/.env
 rm -f  "$RELEASE_DIR"/.env.*
 rm -f  "$RELEASE_DIR"/WOOCOMMERCE-INTEGRATION-HANDOFF.md
+
+# Copy launcher/win/ files to zip root (source org → flat ship layout)
+cp "$RELEASE_DIR"/launcher/win/* "$RELEASE_DIR"/ 2>/dev/null || true
+rm -rf "$RELEASE_DIR"/launcher
+
 find "$RELEASE_DIR" -name "*.pyc" -delete
 find "$RELEASE_DIR" -name ".DS_Store" -delete
 find "$RELEASE_DIR" -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
