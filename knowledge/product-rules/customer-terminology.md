@@ -2,7 +2,7 @@
 
 **Purpose:** Translations from how customers talk to how Viper's catalog is named. This is Pattern B in the `/teach` redesign.
 
-Marshall consults this file *before* querying the catalog. If the customer used a known alias, Marshall translates first, then queries using Viper's terminology. Catches misspellings, informal names, and terminology that doesn't match product naming.
+Enzo consults this file *before* querying the catalog. If the customer used a known alias, Enzo translates first, then queries using Viper's terminology. Catches misspellings, informal names, and terminology that doesn't match product naming.
 
 **Created:** 2026-04-16. Seeded with verified entries from `context/tone.md`.
 

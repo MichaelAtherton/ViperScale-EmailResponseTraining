@@ -1,0 +1,8 @@
+# Template: scripts/session-sync.sh
+# Vault:    .claude/hooks/session-sync.sh
+# Similarity: 100.00%
+# Change level: minimal
+
+## Template → Vault Diff
+
+(identical)

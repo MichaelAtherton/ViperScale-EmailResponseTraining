@@ -1,0 +1,33 @@
+# Template: templates/relationship.md
+# Vault:    .claude/src/relationship.md
+# Similarity: 92.35%
+# Change level: minimal
+
+## Template → Vault Diff
+
+--- template/templates/relationship.md
++++ vault/.claude/src/relationship.md
+@@ -1,10 +1,10 @@
+ <!-- SYSTEM MANAGED — DO NOT EDIT THIS SECTION -->
+
+ ---
+
+-first_met: null
+
++first_met: 2026-04-08
+
+ ---
+
+ <!-- END SYSTEM MANAGED — Add your notes below -->
+
+ 
+
+-## How {{OWNER_NAME}} Likes to Work
+
++## How Dan Likes to Work
+
+ [learning]
+
+ 
+
+ ## Notable Moments

@@ -1,0 +1,37 @@
+# Template: scripts/auto-commit.sh
+# Vault:    .claude/hooks/auto-commit.sh
+# Similarity: 99.37%
+# Change level: minimal
+
+## Template → Vault Diff
+
+--- template/scripts/auto-commit.sh
++++ vault/.claude/hooks/auto-commit.sh
+@@ -98,12 +98,12 @@
+   # Check if it's a new untracked file
+
+   if ! git ls-files --error-unmatch "$FILE_PATH" >/dev/null 2>&1; then
+
+     git add "$FILE_PATH"
+
+-    git commit -m "{{COMMIT_PREFIX}}: new $TYPE - $FILENAME"
+
++    git commit -m "vsr: new $TYPE - $FILENAME"
+
+     sync_and_push
+
+   fi
+
+ else
+
+   git add "$FILE_PATH"
+
+-  git commit -m "{{COMMIT_PREFIX}}: update $TYPE - $FILENAME"
+
++  git commit -m "vsr: update $TYPE - $FILENAME"
+
+   sync_and_push
+
+ fi
+
+ 

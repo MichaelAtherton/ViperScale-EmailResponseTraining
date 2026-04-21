@@ -139,8 +139,8 @@ When copying Viper files to templates, apply these replacements:
 | `Dan` (as owner) | `{{OWNER_NAME}}` | |
 | `Abby` (as team member) | `{{TEAM_MEMBER_1}}` | Remove section if client is solo |
 | `John` (as specialist) | `{{TEAM_MEMBER_2}}` | Remove section if no specialist |
-| `Marshall` | `{{ASSISTANT_NAME}}` | Full name |
-| `Marsh` | `{{ASSISTANT_NICKNAME}}` | Casual short form |
+| `Enzo` | `{{ASSISTANT_NAME}}` | Full name |
+| `Enzo` | `{{ASSISTANT_NICKNAME}}` | Casual short form |
 | "a race marshal keeps things running" | `{{NAME_RATIONALE}}` | Why this name was chosen |
 | `vsr:` (commit prefix) | `{{COMMIT_PREFIX}}:` | In scripts AND commit messages |
 | Viper product references (SKU 420, Magnet Traction, etc.) | Remove or replace with `<!-- client-specific -->` | |

@@ -1,0 +1,158 @@
+# Template: templates/skills/draft-facebook-reply.md
+# Vault:    .claude/skills/draft-facebook-reply/SKILL.md
+# Similarity: 98.11%
+# Change level: minimal
+
+## Template → Vault Diff
+
+--- template/templates/skills/draft-facebook-reply.md
++++ vault/.claude/skills/draft-facebook-reply/SKILL.md
+@@ -1,6 +1,6 @@
+ ---
+
+ name: draft-facebook-reply
+
+-description: Draft Facebook comment replies and DM responses using the knowledge base and {{OWNER_NAME}}'s social media tone. USE WHEN facebook reply, respond to this comment, facebook message, DM response, social media reply, reply to this post, facebook comment.
+
++description: Draft Facebook comment replies and DM responses using the knowledge base and Dan's social media tone. USE WHEN facebook reply, respond to this comment, facebook message, DM response, social media reply, reply to this post, facebook comment.
+
+ argument-hint: <paste Facebook comment or DM>
+
+ allowed-tools: Read, Glob, Grep, Write, AskUserQuestion
+
+ ---
+
+@@ -26,12 +26,12 @@
+ ## Step 2: Categorize
+
+ 
+
+ Same categories as email — the customer problem doesn't change by channel:
+
+-- **product-question** — compatibility, recommendations, "what fits my needs?"
+
++- **product-question** — compatibility, recommendations, "what fits my car?"
+
+ - **order-issue** — wrong parts, payment failure, order modification
+
+ - **warranty-return** — defect report, item not working
+
+ - **stock-availability** — "do you carry X?", "is X in stock?"
+
+-- **pre-sales** — inquiry, new customer, wants advice
+
+-- **setup-support** — setup assistance, software, assembly
+
++- **pre-sales** — track inquiry, new customer, wants advice
+
++- **setup-support** — timing system, software, assembly
+
+ 
+
+ ---
+
+ 
+
+@@ -39,7 +39,7 @@
+ 
+
+ Search the SAME knowledge base as email — product knowledge is shared:
+
+ 
+
+-1. **`knowledge/product-rules/`** — compatibility, category info, discontinued items
+
++1. **`knowledge/product-rules/`** — compatibility, chassis info, discontinued items
+
+ 2. **`knowledge/products/`** — specific SKUs, pricing, stock status
+
+ 3. **`knowledge/facebook-examples/`** — similar past Facebook Q&A pairs (check comment-replies/ or dm-responses/ based on channel type)
+
+ 4. **`knowledge/email-examples/`** — ALSO check email examples. The answer content is the same; only the format changes for Facebook.
+
+@@ -64,8 +64,8 @@
+ 
+
+ ### For DMs:
+
+ Check standard routing:
+
+-- **Large sales over $500** → "Let me have {{OWNER_NAME}} reach out to you directly on this"
+
+-- **Specialist questions** → "{{TEAM_MEMBER_2}} handles our specialist area — I'll pass this to them"
+
++- **Track sales over $500** → "Let me have Dan reach out to you directly on this"
+
++- **Drag racing** → "John handles our drag racing — I'll pass this to him"
+
+ 
+
+ ---
+
+ 
+
+@@ -77,7 +77,7 @@
+ 
+
+ "I don't have enough to draft a good response for this one yet. Here's what I'd need to know:
+
+ 
+
+-- [specific question, e.g., "Do we carry this product or should I point them elsewhere?"]
+
++- [specific question, e.g., "Do we carry this product or should I point them to eBay?"]
+
+ - [specific question, e.g., "How do you usually respond to this type of comment?"]
+
+ 
+
+ What would you tell them? Once you tell me, I'll remember it and handle this type of question on my own next time."
+
+@@ -95,8 +95,8 @@
+ ### For public comment replies:
+
+ - **1-3 sentences max** — short, helpful, direct
+
+ - Include product names or direct links when relevant (links work on Facebook)
+
+-- Casual but knowledgeable — like talking to someone at the shop
+
+-- Emoji sparingly — {{OWNER_NAME}}'s style, not corporate social
+
++- Casual but knowledgeable — like talking to someone at the hobby shop
+
++- Emoji sparingly — Dan's style, not corporate social
+
+ - If someone gave wrong advice in the comments, provide correct info without calling them out
+
+ - **NEVER include:** order numbers, payment details, personal info, warranty specifics
+
+ 
+
+@@ -142,7 +142,7 @@
+ 
+
+ Draft response:
+
+ 
+
+-[the actual Facebook reply — {{OWNER_NAME}}'s voice, NOT assistant persona]
+
++[the actual Facebook reply — Dan's voice, NOT assistant persona]
+
+ 
+
+ ---
+
+ 
+
+@@ -176,4 +176,4 @@
+ - NEVER get into arguments in public comments — provide correct info, don't call people out
+
+ - If someone gives wrong advice in a comment thread, provide the correct answer without being confrontational
+
+ - Keep public comments SHORT — 1-3 sentences. Save detail for DMs.
+
+-- Don't pad responses with corporate social media language — {{OWNER_NAME}}'s style is casual and direct
+
++- Don't pad responses with corporate social media language — Dan's style is casual and direct

@@ -1,6 +1,6 @@
 # Response Patterns
 
-**Purpose:** Scenario-specific rules for how Marshall shapes a response — not what facts to include, but how to phrase them and what context to acknowledge. This is Pattern C in the `/teach` redesign.
+**Purpose:** Scenario-specific rules for how Enzo shapes a response — not what facts to include, but how to phrase them and what context to acknowledge. This is Pattern C in the `/teach` redesign.
 
 Where `tone.md` covers Dan's general voice and communication style, this file captures specific situational patterns: "when customer does X, respond like Y."
 
@@ -8,9 +8,9 @@ Where `tone.md` covers Dan's general voice and communication style, this file ca
 
 ---
 
-## How Marshall uses this file
+## How Enzo uses this file
 
-At draft composition time, after the facts are gathered, Marshall checks this file for scenario matches. If the customer situation matches a pattern, Marshall applies the framing guidance when composing the customer-facing draft.
+At draft composition time, after the facts are gathered, Enzo checks this file for scenario matches. If the customer situation matches a pattern, Enzo applies the framing guidance when composing the customer-facing draft.
 
 Patterns here affect *how* the draft is written, not *what* data it contains.
 
@@ -47,7 +47,7 @@ Patterns here affect *how* the draft is written, not *what* data it contains.
 
 ### Scenario: Customer acknowledges they searched and didn't find the product
 - **Trigger:** Phrasing like "I don't see X on your site," "couldn't find X," "not showing up in my search"
-- **Response shape:** Acknowledge what we *do* have directly — no "let me check." Don't dismiss their search effort. If we have the product, give the link; if not, give the clean-no answer. Customer did the work already; Marshall should give a clean answer, not re-explain how to search.
+- **Response shape:** Acknowledge what we *do* have directly — no "let me check." Don't dismiss their search effort. If we have the product, give the link; if not, give the clean-no answer. Customer did the work already; Enzo should give a clean answer, not re-explain how to search.
 - **Why:** Respects the customer's effort. Dan's direct "give them the answer" style doesn't include backtracking on "have you searched?"
 - **Source:** Pattern observed in Q1 (see `doc/woocommerce/findings-log.md`)
 
@@ -80,4 +80,4 @@ Patterns here affect *how* the draft is written, not *what* data it contains.
 
 ---
 
-_Additional patterns added via `/teach` as Dan teaches them or as recurring scenarios are identified in pilot emails. Do NOT extrapolate beyond Dan's actual guidance — a Pattern C rule must capture real direction, not Marshall's best guess._
+_Additional patterns added via `/teach` as Dan teaches them or as recurring scenarios are identified in pilot emails. Do NOT extrapolate beyond Dan's actual guidance — a Pattern C rule must capture real direction, not Enzo's best guess._

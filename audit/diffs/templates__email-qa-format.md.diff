@@ -1,0 +1,60 @@
+# Template: templates/email-qa-format.md
+# Vault:    .claude/reference/email-qa-format.md
+# Similarity: 97.55%
+# Change level: minimal
+
+## Template → Vault Diff
+
+--- template/templates/email-qa-format.md
++++ vault/.claude/reference/email-qa-format.md
+@@ -15,9 +15,9 @@
+ [The customer's actual email text — preserve their exact words, including misspellings]
+
+ 
+
+ ## Response
+
+-[The owner's or team member's actual response — preserve their exact phrasing.
+
++[Dan or Abby's actual response — preserve their exact phrasing.
+
+ If this is a new /teach entry rather than a real email, write the
+
+-response in the owner's tone following context/tone.md guidelines.]
+
++response in Dan's tone following context/tone.md guidelines.]
+
+ 
+
+ ## Category
+
+ [One of: product-question, order-issue, warranty-return, stock-availability, pre-sales, setup-support]
+
+@@ -25,12 +25,12 @@
+ ## Notes
+
+ - [Any context: special circumstances, product details, why this answer was chosen]
+
+ - [Related products, SKUs, or rules to cross-reference]
+
+-- [If this was a /teach entry, note: "Source: /teach — {{OWNER_NAME}}, YYYY-MM-DD"]
+
++- [If this was a /teach entry, note: "Source: /teach — Dan, YYYY-MM-DD"]
+
+ ```
+
+ 
+
+ ## Guidelines
+
+ 
+
+-- **Preserve exact phrasing** — don't clean up or rewrite the owner's responses
+
++- **Preserve exact phrasing** — don't clean up or rewrite Dan's responses
+
+ - **One Q&A pair per file** — if an email thread has multiple exchanges, split them
+
+ - **Include context in Notes** — this helps the AI understand WHY this answer was given, not just WHAT it is
+
+ - **Category must match folder** — a file in `email-examples/order-issues/` must have `Category: order-issue`

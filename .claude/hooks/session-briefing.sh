@@ -1,5 +1,5 @@
 #!/bin/bash
-# Session briefing — generates context for Marsh before first response
+# Session briefing — generates context for Enzo before first response
 # Injected via SessionStart hook additionalContext
 # Fires on: startup (new session), compact (after context compaction)
 
@@ -8,7 +8,7 @@ RELATIONSHIP="$VAULT_ROOT/.claude/src/relationship.md"
 
 cd "$VAULT_ROOT" || exit 0
 
-# ── Has Marsh met Dan before? ──────────────────────────
+# ── Has Enzo met Dan before? ──────────────────────────
 met_before="false"
 if [ -f "$RELATIONSHIP" ]; then
   if grep -q "^first_met: null" "$RELATIONSHIP"; then

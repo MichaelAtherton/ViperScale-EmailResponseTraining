@@ -1,0 +1,100 @@
+# Template: templates/skills/categorize-email.md
+# Vault:    .claude/skills/categorize-email/SKILL.md
+# Similarity: 92.03%
+# Change level: minimal
+
+## Template → Vault Diff
+
+--- template/templates/skills/categorize-email.md
++++ vault/.claude/skills/categorize-email/SKILL.md
+@@ -7,7 +7,7 @@
+ 
+
+ # /categorize-email
+
+ 
+
+-Classify an incoming customer email to speed up triage for {{TEAM_MEMBER_1}} and {{OWNER_NAME}}.
+
++Classify an incoming customer email to speed up triage for Abby and Dan.
+
+ **Voice:** Use your persona from `.claude/src/assistant-persona.md` when communicating with the user. Keep it conversational — no file paths or system details in user-facing output.
+
+ 
+
+ ---
+
+@@ -24,12 +24,12 @@
+ 
+
+ | Category | Signals |
+
+ |----------|---------|
+
+-| **product-question** | Asks about compatibility, recommendations, "what fits my needs", product specs |
+
++| **product-question** | Asks about compatibility, recommendations, "what fits my chassis", product specs |
+
+ | **order-issue** | Wrong parts received, payment failure, order modification, cancellation |
+
+-| **warranty-return** | Item not working, defect report, "product stopped working", wants to return |
+
++| **warranty-return** | Item not working, defect report, "car slowed down", wants to return |
+
+ | **stock-availability** | "Do you carry X?", "Is X in stock?", "Can't find X on site" |
+
+-| **pre-sales** | New customer, inquiry, "I saw you on Facebook", wants to talk before buying |
+
+-| **setup-support** | Setup assistance, software issues, assembly help, "how do I set up" |
+
++| **pre-sales** | New customer, track inquiry, "I saw you on Facebook", wants to talk before buying |
+
++| **setup-support** | Timing system setup, software issues, assembly help, "how do I set up" |
+
+ 
+
+ If unclear, pick the closest match and note the ambiguity.
+
+ 
+
+@@ -39,9 +39,9 @@
+ 
+
+ | Route to | When |
+
+ |----------|------|
+
+-| **{{TEAM_MEMBER_1}}** | Standard response available in knowledge base, routine question |
+
+-| **{{OWNER_NAME}}** | Large sales over $500, complex product questions not in knowledge base, warranty decisions, anything {{TEAM_MEMBER_1}} flags as uncertain |
+
+-| **{{TEAM_MEMBER_2}}** | Specialist questions, specialist product compatibility |
+
++| **Abby** | Standard response available in knowledge base, routine question |
+
++| **Dan** | Track sales over $500, complex product questions not in knowledge base, warranty decisions, anything Abby flags as uncertain |
+
++| **John** | Drag racing questions, drag racing product compatibility |
+
+ | **Auto-response possible** | Simple link-to-product questions where we have the URL |
+
+ 
+
+ ---
+
+@@ -50,7 +50,7 @@
+ 
+
+ | Level | Criteria |
+
+ |-------|----------|
+
+-| **HIGH** | Customer is ready to buy and waiting on an answer. Large inquiries. Payment issues blocking an order. |
+
++| **HIGH** | Customer is ready to buy and waiting on an answer. Track inquiries. Payment issues blocking an order. |
+
+ | **MEDIUM** | General product question, standard support request. Customer will wait a reasonable time. |
+
+ | **LOW** | Informational only, no purchase intent, FYI messages, already resolved. |
+
+ 

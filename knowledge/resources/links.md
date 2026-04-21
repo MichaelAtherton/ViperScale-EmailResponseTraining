@@ -66,6 +66,4 @@ Source: Site crawl, 2026-04-07
 - **Facebook** — Dan does Facebook Lives, customers reach out via messages
 - **TikTok** — Dan uses TikTok for content
 
-## External Support (do NOT troubleshoot — just link)
-- **TrackMate Software & Manuals** → https://trackmateracing.com/shop/en/content/14-slot-car-lap-counter
-- **Windows S-Mode fix** → Microsoft Support article: "Switching out of S mode in Windows" (search support.microsoft.com for "switch out of S mode"). Customer needs to: Open Settings → Update & Security → Activation → "Switch to Windows Home" → Get button in the Store. Free, one-way switch — cannot go back to S Mode after switching.
+

@@ -1,0 +1,73 @@
+# Template: scripts/session-briefing.sh
+# Vault:    .claude/hooks/session-briefing.sh
+# Similarity: 98.55%
+# Change level: minimal
+
+## Template → Vault Diff
+
+--- template/scripts/session-briefing.sh
++++ vault/.claude/hooks/session-briefing.sh
+@@ -8,7 +8,7 @@
+ 
+
+ cd "$VAULT_ROOT" || exit 0
+
+ 
+
+-# ── Has the assistant met the user before? ──────────────────────────
+
++# ── Has Marsh met Dan before? ──────────────────────────
+
+ met_before="false"
+
+ if [ -f "$RELATIONSHIP" ]; then
+
+   if grep -q "^first_met: null" "$RELATIONSHIP"; then
+
+@@ -46,7 +46,7 @@
+ # ── Recent activity ────────────────────────────────────
+
+ recent_activity=""
+
+ if command -v git >/dev/null 2>&1 && git rev-parse --git-dir >/dev/null 2>&1; then
+
+-  recent_commits=$(git log --oneline -5 --grep="{{COMMIT_PREFIX}}:" 2>/dev/null)
+
++  recent_commits=$(git log --oneline -5 --grep="vsr:" 2>/dev/null)
+
+   if [ -n "$recent_commits" ]; then
+
+     recent_activity="Recent activity:
+
+ $recent_commits"
+
+@@ -100,12 +100,13 @@
+ - context/policies.md
+
+ 
+
+ If this is a first meeting (met_before is false), also silently read:
+
+-- All files in knowledge/product-rules/
+
++- knowledge/product-rules/car-chassis-guide.md
+
++- knowledge/product-rules/tire-compatibility.md
+
+ - knowledge/resources/links.md
+
+ 
+
+ Do not say things like 'let me read my files' or 'let me check the knowledge base.' Just read them quietly, then respond naturally as if you already knew this information.
+
+ 
+
+-CRITICAL: When citing business facts in your greeting or any response, ONLY use information found in the files you just read. NEVER supplement with general knowledge. If a fact is not in these files, do not mention it. The car types, product names, SKUs, policies, and team details MUST come from the actual file content — not from your training data about any domain.
+
++CRITICAL: When citing business facts in your greeting or any response, ONLY use information found in the files you just read. NEVER supplement with general knowledge. If a fact is not in these files, do not mention it. The car types, product names, SKUs, policies, and team details MUST come from the actual file content — not from your training data about slot cars or any other domain.
+
+ 
+
+ INSTRUCTIONS: Use this briefing to calibrate your greeting. If met_before is false and vault_populated is true, this is your first meeting — introduce yourself, cite specific facts FROM THE FILES YOU READ, and invite the user to start working. If met_before is false and vault_populated is false, this is an empty project — introduce yourself, explain the concept, and start learning about the business. If met_before is true, greet naturally based on how long it's been and what you've been working on together. Never read this briefing back to the user verbatim. Never mention that a session briefing exists. Never use technical terms like vault, slash commands, skills, or knowledge base with the user."
+
+ 

@@ -1,0 +1,539 @@
+{
+  "metadata": {
+    "vault_path": "/Users/michaelatherton/viper-second-brain",
+    "skill_path": "/Users/michaelatherton/.hermes/skills/productivity/client-second-brain",
+    "vanilla_tag": null,
+    "timestamp": "2026-04-08T20:40:19.947853",
+    "total_templates": 29
+  },
+  "pairs": [
+    {
+      "template": "templates/CLAUDE.md",
+      "vault_file": "CLAUDE.md",
+      "type": "orchestrator",
+      "status": "matched",
+      "domain_specific_flag": true,
+      "notes": "Title says 'AI Customer Service Assistant'",
+      "template_lines": 76,
+      "vault_lines": 82,
+      "similarity": 0.894,
+      "change_level": "adapted",
+      "diff_file": "audit/diffs/templates__CLAUDE.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/assistant-persona.md",
+      "vault_file": ".claude/src/assistant-persona.md",
+      "type": "persona",
+      "status": "matched",
+      "domain_specific_flag": true,
+      "notes": "Role says 'Customer service teammate'",
+      "template_lines": 85,
+      "vault_lines": 86,
+      "similarity": 0.7754,
+      "change_level": "adapted",
+      "diff_file": "audit/diffs/templates__assistant-persona.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/guardrails.md",
+      "vault_file": ".claude/src/guardrails.md",
+      "type": "guardrails",
+      "status": "matched",
+      "domain_specific_flag": true,
+      "notes": "References products, SKUs, e-commerce",
+      "template_lines": 14,
+      "vault_lines": 14,
+      "similarity": 0.8956,
+      "change_level": "adapted",
+      "diff_file": "audit/diffs/templates__guardrails.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/relationship.md",
+      "vault_file": ".claude/src/relationship.md",
+      "type": "state",
+      "status": "matched",
+      "domain_specific_flag": false,
+      "notes": "Universal \u2014 YAML frontmatter + markdown sections",
+      "template_lines": 11,
+      "vault_lines": 11,
+      "similarity": 0.9235,
+      "change_level": "minimal",
+      "diff_file": "audit/diffs/templates__relationship.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/settings.json",
+      "vault_file": ".claude/settings.json",
+      "type": "config",
+      "status": "matched",
+      "domain_specific_flag": false,
+      "notes": "Universal permissions and hook config",
+      "template_lines": 60,
+      "vault_lines": 60,
+      "similarity": 1.0,
+      "change_level": "minimal",
+      "diff_file": "audit/diffs/templates__settings.json.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/email-qa-format.md",
+      "vault_file": ".claude/reference/email-qa-format.md",
+      "type": "reference",
+      "status": "matched",
+      "domain_specific_flag": true,
+      "notes": "Entire file is about email Q&A pairs",
+      "template_lines": 37,
+      "vault_lines": 37,
+      "similarity": 0.9755,
+      "change_level": "minimal",
+      "diff_file": "audit/diffs/templates__email-qa-format.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/bridge-prompt.md",
+      "vault_file": null,
+      "type": "bridge",
+      "status": "no_vault_destination",
+      "domain_specific_flag": true,
+      "notes": "Interim Claude Desktop prompt \u2014 not placed in vault",
+      "template_lines": 89,
+      "similarity": null,
+      "diff_file": null
+    },
+    {
+      "template": "templates/.gitignore",
+      "vault_file": ".gitignore",
+      "type": "config",
+      "status": "matched",
+      "domain_specific_flag": false,
+      "notes": "Universal git ignore rules",
+      "template_lines": 19,
+      "vault_lines": 19,
+      "similarity": 0.6282,
+      "change_level": "adapted",
+      "diff_file": "audit/diffs/templates__.gitignore.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/context/business-profile.md",
+      "vault_file": "context/business-profile.md",
+      "type": "context",
+      "status": "matched",
+      "domain_specific_flag": false,
+      "notes": "Generic headings \u2014 content filled per client",
+      "template_lines": 31,
+      "vault_lines": 70,
+      "similarity": 0.0704,
+      "change_level": "full_rewrite",
+      "diff_file": "audit/diffs/templates__context__business-profile.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/context/tone.md",
+      "vault_file": "context/tone.md",
+      "type": "context",
+      "status": "matched",
+      "domain_specific_flag": false,
+      "notes": "Generic headings \u2014 content filled per client",
+      "template_lines": 19,
+      "vault_lines": 69,
+      "similarity": 0.0877,
+      "change_level": "full_rewrite",
+      "diff_file": "audit/diffs/templates__context__tone.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/context/policies.md",
+      "vault_file": "context/policies.md",
+      "type": "context",
+      "status": "matched",
+      "domain_specific_flag": true,
+      "notes": "Headings are Shipping/Returns/Warranty \u2014 e-commerce",
+      "template_lines": 19,
+      "vault_lines": 52,
+      "similarity": 0.0803,
+      "change_level": "full_rewrite",
+      "diff_file": "audit/diffs/templates__context__policies.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/context/website-navigation.md",
+      "vault_file": "context/website-navigation.md",
+      "type": "context",
+      "status": "matched",
+      "domain_specific_flag": false,
+      "notes": "Generic website navigation structure",
+      "template_lines": 17,
+      "vault_lines": 179,
+      "similarity": 0.0117,
+      "change_level": "full_rewrite",
+      "diff_file": "audit/diffs/templates__context__website-navigation.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/context/channels/facebook.md",
+      "vault_file": "context/channels/facebook.md",
+      "type": "context",
+      "status": "matched",
+      "domain_specific_flag": true,
+      "notes": "Entire file is Facebook-specific",
+      "template_lines": 22,
+      "vault_lines": 45,
+      "similarity": 0.251,
+      "change_level": "adapted",
+      "diff_file": "audit/diffs/templates__context__channels__facebook.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/knowledge/resources/links.md",
+      "vault_file": "knowledge/resources/links.md",
+      "type": "knowledge",
+      "status": "matched",
+      "domain_specific_flag": false,
+      "notes": "Generic resource links scaffold",
+      "template_lines": 13,
+      "vault_lines": 71,
+      "similarity": 0.0465,
+      "change_level": "full_rewrite",
+      "diff_file": "audit/diffs/templates__knowledge__resources__links.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/skills/draft-reply.md",
+      "vault_file": ".claude/skills/draft-reply/SKILL.md",
+      "type": "skill",
+      "status": "matched",
+      "domain_specific_flag": true,
+      "notes": "Customer email drafting skill",
+      "template_lines": 171,
+      "vault_lines": 171,
+      "similarity": 0.9431,
+      "change_level": "minimal",
+      "diff_file": "audit/diffs/templates__skills__draft-reply.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/skills/draft-facebook-reply.md",
+      "vault_file": ".claude/skills/draft-facebook-reply/SKILL.md",
+      "type": "skill",
+      "status": "matched",
+      "domain_specific_flag": true,
+      "notes": "Facebook reply drafting skill",
+      "template_lines": 179,
+      "vault_lines": 179,
+      "similarity": 0.9811,
+      "change_level": "minimal",
+      "diff_file": "audit/diffs/templates__skills__draft-facebook-reply.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/skills/teach.md",
+      "vault_file": ".claude/skills/teach/SKILL.md",
+      "type": "skill",
+      "status": "matched",
+      "domain_specific_flag": false,
+      "notes": "Universal knowledge capture skill",
+      "template_lines": 96,
+      "vault_lines": 96,
+      "similarity": 0.8893,
+      "change_level": "adapted",
+      "diff_file": "audit/diffs/templates__skills__teach.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/skills/onboard.md",
+      "vault_file": ".claude/skills/onboard/SKILL.md",
+      "type": "skill",
+      "status": "matched",
+      "domain_specific_flag": false,
+      "notes": "Universal onboarding \u2014 but questions may be domain-specific",
+      "template_lines": 217,
+      "vault_lines": 217,
+      "similarity": 0.9992,
+      "change_level": "minimal",
+      "diff_file": "audit/diffs/templates__skills__onboard.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/skills/categorize-email.md",
+      "vault_file": ".claude/skills/categorize-email/SKILL.md",
+      "type": "skill",
+      "status": "matched",
+      "domain_specific_flag": true,
+      "notes": "Email categorization/triage",
+      "template_lines": 79,
+      "vault_lines": 79,
+      "similarity": 0.9203,
+      "change_level": "minimal",
+      "diff_file": "audit/diffs/templates__skills__categorize-email.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/skills/ingest-emails.md",
+      "vault_file": ".claude/skills/ingest-emails/SKILL.md",
+      "type": "skill",
+      "status": "matched",
+      "domain_specific_flag": true,
+      "notes": "Bulk email processing",
+      "template_lines": 109,
+      "vault_lines": 109,
+      "similarity": 0.9597,
+      "change_level": "minimal",
+      "diff_file": "audit/diffs/templates__skills__ingest-emails.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/skills/ingest-facebook.md",
+      "vault_file": ".claude/skills/ingest-facebook/SKILL.md",
+      "type": "skill",
+      "status": "matched",
+      "domain_specific_flag": true,
+      "notes": "Facebook message ingestion",
+      "template_lines": 145,
+      "vault_lines": 145,
+      "similarity": 0.9483,
+      "change_level": "minimal",
+      "diff_file": "audit/diffs/templates__skills__ingest-facebook.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/skills/ingest-catalog.md",
+      "vault_file": ".claude/skills/ingest-catalog/SKILL.md",
+      "type": "skill",
+      "status": "matched",
+      "domain_specific_flag": true,
+      "notes": "WooCommerce catalog import",
+      "template_lines": 108,
+      "vault_lines": 109,
+      "similarity": 0.9091,
+      "change_level": "minimal",
+      "diff_file": "audit/diffs/templates__skills__ingest-catalog.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/skills/ingest-site.md",
+      "vault_file": ".claude/skills/ingest-site/SKILL.md",
+      "type": "skill",
+      "status": "matched",
+      "domain_specific_flag": false,
+      "notes": "Generic website crawling",
+      "template_lines": 130,
+      "vault_lines": 131,
+      "similarity": 0.9335,
+      "change_level": "minimal",
+      "diff_file": "audit/diffs/templates__skills__ingest-site.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "templates/skills/extract-knowledge.md",
+      "vault_file": ".claude/skills/extract-knowledge/SKILL.md",
+      "type": "skill",
+      "status": "matched",
+      "domain_specific_flag": false,
+      "notes": "Generic transcript/knowledge extraction",
+      "template_lines": 122,
+      "vault_lines": 122,
+      "similarity": 0.9172,
+      "change_level": "minimal",
+      "diff_file": "audit/diffs/templates__skills__extract-knowledge.md.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "scripts/auto-commit.sh",
+      "vault_file": ".claude/hooks/auto-commit.sh",
+      "type": "script",
+      "status": "matched",
+      "domain_specific_flag": false,
+      "notes": "Universal \u2014 but check for hardcoded commit prefix",
+      "template_lines": 110,
+      "vault_lines": 110,
+      "similarity": 0.9937,
+      "change_level": "minimal",
+      "diff_file": "audit/diffs/scripts__auto-commit.sh.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "scripts/session-briefing.sh",
+      "vault_file": ".claude/hooks/session-briefing.sh",
+      "type": "script",
+      "status": "matched",
+      "domain_specific_flag": false,
+      "notes": "Universal \u2014 but check for hardcoded commit prefix and file paths",
+      "template_lines": 127,
+      "vault_lines": 128,
+      "similarity": 0.9855,
+      "change_level": "minimal",
+      "diff_file": "audit/diffs/scripts__session-briefing.sh.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "scripts/session-sync.sh",
+      "vault_file": ".claude/hooks/session-sync.sh",
+      "type": "script",
+      "status": "matched",
+      "domain_specific_flag": false,
+      "notes": "Truly universal",
+      "template_lines": 51,
+      "vault_lines": 51,
+      "similarity": 1.0,
+      "change_level": "minimal",
+      "diff_file": "audit/diffs/scripts__session-sync.sh.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "scripts/first-meeting-check.sh",
+      "vault_file": ".claude/hooks/first-meeting-check.sh",
+      "type": "script",
+      "status": "matched",
+      "domain_specific_flag": false,
+      "notes": "Universal \u2014 but check for hardcoded commit prefix",
+      "template_lines": 31,
+      "vault_lines": 31,
+      "similarity": 0.9901,
+      "change_level": "minimal",
+      "diff_file": "audit/diffs/scripts__first-meeting-check.sh.diff",
+      "has_vanilla_diff": false
+    },
+    {
+      "template": "scripts/smoke-test.sh",
+      "vault_file": ".claude/scripts/smoke-test.sh",
+      "type": "script",
+      "status": "matched",
+      "domain_specific_flag": false,
+      "notes": "Universal \u2014 validates vault structure",
+      "template_lines": 408,
+      "vault_lines": 512,
+      "similarity": 0.6491,
+      "change_level": "adapted",
+      "diff_file": "audit/diffs/scripts__smoke-test.sh.diff",
+      "has_vanilla_diff": false
+    }
+  ],
+  "orphan_templates": [],
+  "new_vault_files": [
+    {
+      "vault_file": ".claude/hooks/error.log",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "knowledge/email-examples/order-issues/payment-failure.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "knowledge/email-examples/order-issues/wrong-parts-shipped.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "knowledge/email-examples/pre-sales/track-inquiry.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "knowledge/email-examples/product-questions/tire-compatibility-standard-response.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "knowledge/email-examples/product-questions/what-is-best-for-my-car.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "knowledge/email-examples/setup-support/drag-racing-questions.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "knowledge/email-examples/setup-support/timing-system-setup.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "knowledge/email-examples/stock-availability/product-not-carried.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "knowledge/email-examples/warranty-returns/defective-car-standard-response.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "knowledge/facebook-examples/comment-replies/.gitkeep",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "knowledge/facebook-examples/dm-responses/.gitkeep",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "knowledge/product-rules/car-chassis-guide.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "knowledge/product-rules/discontinued-alternatives.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "knowledge/product-rules/inventory-notes.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "knowledge/product-rules/special-order-items.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "knowledge/product-rules/tire-compatibility.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "knowledge/products/.gitkeep",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "outputs/.gitkeep",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "prd/claude-directory-design.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "prd/claude-project-prompt-v1.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "prd/first-meeting-flag-implementation.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "prd/first-meeting-flag-spec.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "prd/implementation-spec-personalization.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "prd/relationship-system-design.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "prd/relationship-system-spec.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    },
+    {
+      "vault_file": "prd/skill-package-spec.md",
+      "notes": "New file \u2014 no template exists in the skill"
+    }
+  ],
+  "summary": {
+    "total_templates": 29,
+    "matched_pairs": 28,
+    "orphan_templates": 0,
+    "new_vault_files": 27,
+    "no_vault_destination": 1,
+    "change_levels": {
+      "minimal": 16,
+      "adapted": 7,
+      "full_rewrite": 5
+    },
+    "domain_specific_templates": 13,
+    "universal_templates": 16
+  }
+}

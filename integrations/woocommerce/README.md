@@ -1,6 +1,6 @@
 # Viper Scale Racing — WooCommerce Integration
 
-Read-only Python client + CLI for querying the live WooCommerce catalog at viperscaleracing.com. Called by Marshall (via the `catalog-lookup` skill) from `/draft-reply` at answer time.
+Read-only Python client + CLI for querying the live WooCommerce catalog at viperscaleracing.com. Called by Enzo (via the `catalog-lookup` skill) from `/draft-reply` at answer time.
 
 ## Setup
 
@@ -98,4 +98,4 @@ Aliases are seeded from `implementation-spec.md §6.6` and extended via `/teach`
 - `doc/woocommerce/api-reference.md` — endpoint + field reference (verified against Viper's live API)
 - `doc/woocommerce/findings-log.md` — empirical findings from the live API
 - `doc/woocommerce/integration-roadmap.md` — overall implementation roadmap
-- `.claude/skills/catalog-lookup/SKILL.md` — how Marshall invokes this CLI
+- `.claude/skills/catalog-lookup/SKILL.md` — how Enzo invokes this CLI

@@ -1,0 +1,60 @@
+# Template: templates/.gitignore
+# Vault:    .gitignore
+# Similarity: 62.82%
+# Change level: adapted
+
+## Template → Vault Diff
+
+--- template/templates/.gitignore
++++ vault/.gitignore
+@@ -1,4 +1,4 @@
+-# Machine-specific settings
+
++# Machine-specific settings (if ever needed)
+
+ .claude/settings.local.json
+
+ 
+
+ # OS files
+
+@@ -6,14 +6,14 @@
+ Thumbs.db
+
+ desktop.ini
+
+ 
+
+-# Obsidian config
+
++# Obsidian config (each machine generates its own)
+
+ .obsidian/
+
+ 
+
+-# Hook error log
+
++# Hook error log (machine-specific, don't track)
+
+ .claude/hooks/error.log
+
+ 
+
+-# Generated outputs (optional — uncomment to exclude drafts from git)
+
+-# outputs/
+
++# AIRL internal docs (remove from tracking before client delivery)
+
++# prd/
+
+ 
+
+-# AIRL internal docs (uncomment before client delivery)
+
+-# prd/
+
++
+
++.outputs/*

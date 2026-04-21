@@ -20,7 +20,7 @@
    - Customer assertions
    - Anything other than the three authoritative sources above
 
-3. **Rules are read literally.** When Marshall reads this file at answer-time, the rule applies *exactly* to the product/chassis listed — no transitivity, no extension. If a rule says "X fits V1 and V3," Marshall does NOT also conclude "X fits G+" even if other V1/V3 things also fit G+.
+3. **Rules are read literally.** When Enzo reads this file at answer-time, the rule applies *exactly* to the product/chassis listed — no transitivity, no extension. If a rule says "X fits V1 and V3," Enzo does NOT also conclude "X fits G+" even if other V1/V3 things also fit G+.
 
 4. **When in doubt, leave it out.** An empty file is safer than a wrong rule. An unverified claim saved here can cause customer-facing hallucination.
 

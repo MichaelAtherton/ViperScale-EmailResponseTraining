@@ -150,7 +150,7 @@ A broader alias audit across all chassis families is tracked as a separate follo
 
 ### Fix 3 — Step 0 in catalog-lookup: consult customer-terminology first (Task #3)
 
-**Closes a documented-but-unused gap.** `customer-terminology.md:5` claims "Marshall consults this file *before* querying the catalog." No step in `catalog-lookup/SKILL.md` actually does this. Two places to define the same behavior = drift risk.
+**Closes a documented-but-unused gap.** `customer-terminology.md:5` claims "Enzo consults this file *before* querying the catalog." No step in `catalog-lookup/SKILL.md` actually does this. Two places to define the same behavior = drift risk.
 
 **File:** `.claude/skills/catalog-lookup/SKILL.md`
 

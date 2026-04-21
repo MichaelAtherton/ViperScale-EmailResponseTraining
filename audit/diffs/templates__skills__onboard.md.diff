@@ -1,0 +1,25 @@
+# Template: templates/skills/onboard.md
+# Vault:    .claude/skills/onboard/SKILL.md
+# Similarity: 99.92%
+# Change level: minimal
+
+## Template → Vault Diff
+
+--- template/templates/skills/onboard.md
++++ vault/.claude/skills/onboard/SKILL.md
+@@ -84,7 +84,7 @@
+ 
+
+ **Write when section is done:**
+
+ - `context/tone.md` — shared brand voice
+
+-- `context/channels/facebook.md` — update the tone section and "{{OWNER_NAME}}'s Actual Facebook Phrasing" section with any Facebook-specific differences and real examples
+
++- `context/channels/facebook.md` — update the tone section and "Dan's Actual Facebook Phrasing" section with any Facebook-specific differences and real examples
+
+ 
+
+ If they pasted real responses, save the best ones as examples in `knowledge/email-examples/` or `knowledge/facebook-examples/` depending on the channel.
+
+ 

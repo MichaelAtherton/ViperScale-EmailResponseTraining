@@ -414,6 +414,6 @@ Note what the draft does NOT do:
 |---|---|
 | HIGH | Catalog returned a clean match AND no rule conflict AND no compat ambiguity. Reviewer can likely send as-is. |
 | MEDIUM | Catalog returned results but one specific thing needs reviewer verification (usually compat, occasionally stock timing). |
-| LOW | API failed, OR count=0 without a clean-no rule to cite, OR catalog answer conflicts with a rule Marshall is aware of. |
+| LOW | API failed, OR count=0 without a clean-no rule to cite, OR catalog answer conflicts with a rule Enzo is aware of. |
 
 The flag lives in the internal note. It never appears in the customer-facing draft.

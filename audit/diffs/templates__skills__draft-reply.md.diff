@@ -1,0 +1,259 @@
+# Template: templates/skills/draft-reply.md
+# Vault:    .claude/skills/draft-reply/SKILL.md
+# Similarity: 94.31%
+# Change level: minimal
+
+## Template → Vault Diff
+
+--- template/templates/skills/draft-reply.md
++++ vault/.claude/skills/draft-reply/SKILL.md
+@@ -1,6 +1,6 @@
+ ---
+
+ name: draft-reply
+
+-description: Draft customer email replies using the knowledge base and {{OWNER_NAME}}'s tone. USE WHEN draft reply, respond to this email, what should I say, customer email, draft a response, answer this email, help me reply.
+
++description: Draft customer email replies using the knowledge base and Dan's tone. USE WHEN draft reply, respond to this email, what should I say, customer email, draft a response, answer this email, help me reply.
+
+ argument-hint: <paste customer email>
+
+ allowed-tools: Read, Glob, Grep, Write, AskUserQuestion
+
+ ---
+
+@@ -14,7 +14,7 @@
+ ## Step 1: Read the Email
+
+ 
+
+ Read the customer email from `$ARGUMENTS`. Identify:
+
+-- What they're asking about (product name, SKU, product type, order number)
+
++- What they're asking about (product name, SKU, car type, chassis, order number)
+
+ - How many separate questions are in the email (contact form stacking is common — multiple unrelated topics in one thread)
+
+ 
+
+ If the email contains multiple unrelated questions, treat each as a separate draft section.
+
+@@ -24,12 +24,12 @@
+ ## Step 2: Categorize
+
+ 
+
+ Classify the email into one of 6 categories:
+
+-- **product-question** — "what products fit my needs?", "where can I find X?"
+
++- **product-question** — "what tires fit my chassis?", "where can I find X?"
+
+ - **order-issue** — wrong parts, payment failure, order modification
+
+ - **warranty-return** — defect report, item not working, return request
+
+ - **stock-availability** — "do you carry X?", "is X in stock?", "I can't find X on your site"
+
+-- **pre-sales** — new customer, inquiry, wants to talk before buying
+
+-- **setup-support** — setup assistance, software issues, assembly questions
+
++- **pre-sales** — new customer, track inquiry, wants to talk before buying
+
++- **setup-support** — timing system setup, software issues, assembly questions
+
+ 
+
+ ---
+
+ 
+
+@@ -37,9 +37,9 @@
+ 
+
+ Pull out specific terms to search for:
+
+ - Product names and SKUs
+
+-- Product types and category references <!-- client-specific: add relevant product categories -->
+
++- Car types and chassis references (AFX, Magnet Traction, Mega G+, etc.)
+
+ - Order numbers (if mentioned)
+
+-- Specific issues (wrong parts, defective item, compatibility)
+
++- Specific issues (wrong parts, slow car, tire compatibility)
+
+ 
+
+ ---
+
+ 
+
+@@ -47,7 +47,7 @@
+ 
+
+ Search in this order. Stop and note what you find at each step:
+
+ 
+
+-1. **`knowledge/product-rules/`** — search for product compatibility, category info, discontinued items
+
++1. **`knowledge/product-rules/`** — search for product compatibility, chassis info, discontinued items
+
+ 2. **`knowledge/products/`** — search for specific SKUs, pricing, stock status
+
+ 3. **`knowledge/email-examples/<category>/`** — search for similar past Q&A pairs in the matching category
+
+ 4. **`knowledge/resources/links.md`** — find relevant URLs to include (product pages, YouTube videos, manuals)
+
+@@ -60,9 +60,9 @@
+ ## Step 5: Check Routing
+
+ 
+
+ Before drafting, check if this email should be routed:
+
+-- **Large sales or complex inquiries over $500** → "This looks like a large sale — {{OWNER_NAME}} should handle this personally."
+
+-- **Specialist questions** → "This is a specialist question — route to {{TEAM_MEMBER_2}}."
+
+-- **Complex technical questions with no knowledge base match** → "This needs {{OWNER_NAME}}'s expertise — I don't have enough product knowledge to answer accurately."
+
++- **Track sales or inquiries over $500** → "This looks like a track sale — Dan should handle this personally."
+
++- **Drag racing questions** → "This is a drag racing question — route to John."
+
++- **Complex technical questions with no knowledge base match** → "This needs Dan's expertise — I don't have enough product knowledge to answer accurately."
+
+ 
+
+ If routing is needed, still draft a holding response (acknowledge receipt, provide any relevant links) and flag the routing.
+
+ 
+
+@@ -76,8 +76,8 @@
+ 
+
+ "I don't have enough to draft a good response for this one yet. Here's what I'd need to know:
+
+ 
+
+-- [specific question, e.g., "Do we carry the XYZ product, or should I send them elsewhere?"]
+
+-- [specific question, e.g., "What's the compatible option for this product type?"]
+
++- [specific question, e.g., "Do we carry the XYZ chassis parts, or should I send them to eBay?"]
+
++- [specific question, e.g., "What's the compatible tire for this car type?"]
+
+ 
+
+ What would you tell this customer? Once you tell me, I'll remember it and handle this type of question on my own next time."
+
+ 
+
+@@ -92,9 +92,9 @@
+ Read `context/tone.md` before writing.
+
+ 
+
+ Draft the response following these rules:
+
+-- Match {{OWNER_NAME}}'s tone: direct, knowledgeable, efficient. No AI-speak.
+
++- Match Dan's tone: direct, knowledgeable, efficient. No AI-speak.
+
+ - Include direct product links where you found them — never say "check our website"
+
+-- If you found a past Q&A example that matches, use {{OWNER_NAME}}'s actual phrasing as a guide
+
++- If you found a past Q&A example that matches, use Dan's actual phrasing as a guide
+
+ - If the product isn't in the knowledge base, say so explicitly — never make up product information
+
+ - For stock questions, note that stock data may not be current: "You can check current availability on the product page"
+
+ - For warranty/returns, follow the return-for-inspection flow — never promise a specific outcome
+
+@@ -106,7 +106,7 @@
+ 
+
+ Rate your confidence:
+
+ - **HIGH** — found matching Q&A examples, product rules confirmed, links verified
+
+-- **MEDIUM** — partial match, reasonable answer but {{OWNER_NAME}} should review closely
+
++- **MEDIUM** — partial match, reasonable answer but Dan should review closely
+
+ - **LOW** — no matching knowledge, educated guess, or the question involves products/rules not in the vault
+
+ 
+
+ ---
+
+@@ -128,19 +128,19 @@
+ - LOW: "I'm mostly guessing here — I don't have enough in the knowledge base yet. You'll probably want to rewrite this. When you do, tell me the right answer and I'll remember it."
+
+ 
+
+ ```
+
+-Knowledge I used: [list in plain language — e.g., "product compatibility rules, standard response template" NOT file paths]
+
++Knowledge I used: [list in plain language — e.g., "tire compatibility rules, Magnet Traction standard response" NOT file paths]
+
+ ```
+
+ 
+
+ ---
+
+ 
+
+ Draft response:
+
+ 
+
+-[the actual email draft — {{OWNER_NAME}}'s voice, NOT assistant persona]
+
++[the actual email draft — Dan's voice, NOT assistant persona]
+
+ 
+
+ ---
+
+ 
+
+-If anything needs {{OWNER_NAME}}'s attention — in persona voice:
+
+-"Heads up: [specific concern, e.g., "I couldn't find this SKU in the product catalog" or "This might be a large sale — you usually handle those personally"]"
+
++If anything needs Dan's attention — in persona voice:
+
++"Heads up: [specific concern, e.g., "I couldn't find this SKU in the product catalog" or "This might be a track sale — you usually handle those personally"]"
+
+ 
+
+ Always end with:
+
+ "If anything in this draft is wrong, just tell me what the right answer is — I'll remember it for next time."
+
+@@ -167,5 +167,5 @@
+ - NEVER make up pricing or availability
+
+ - NEVER promise a specific warranty resolution before inspection
+
+ - NEVER provide support for third-party software/OS issues — link to external resources
+
+-- If the email should go to a specific person ({{TEAM_MEMBER_2}} for specialist questions, {{OWNER_NAME}} for large sales), say so
+
+-- Don't pad responses with filler — {{OWNER_NAME}}'s style is helpful but efficient
+
++- If the email should go to a specific person (John for drag racing, Dan for track sales), say so
+
++- Don't pad responses with filler — Dan's style is helpful but efficient

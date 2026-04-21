@@ -1,0 +1,150 @@
+# Template: templates/skills/ingest-site.md
+# Vault:    .claude/skills/ingest-site/SKILL.md
+# Similarity: 93.35%
+# Change level: minimal
+
+## Template → Vault Diff
+
+--- template/templates/skills/ingest-site.md
++++ vault/.claude/skills/ingest-site/SKILL.md
+@@ -1,13 +1,13 @@
+ ---
+
+ name: ingest-site
+
+-description: Crawl {{CLIENT_WEBSITE}} to extract navigation structure, product descriptions, and resource links. USE WHEN ingest site, crawl website, load site data, map website, website navigation.
+
++description: Crawl viperscaleracing.com to extract navigation structure, product descriptions, and resource links. USE WHEN ingest site, crawl website, load site data, map website, website navigation.
+
+ argument-hint: <base URL or "crawl all categories">
+
+ allowed-tools: Read, Glob, Grep, Write, Fetch, AskUserQuestion
+
+ ---
+
+ 
+
+ # /ingest-site
+
+ 
+
+-Crawl key pages of {{CLIENT_WEBSITE}} to map the category navigation tree, extract resource links, and document the product listing structure.
+
++Crawl key pages of viperscaleracing.com to map the category navigation tree, extract resource links, and document the product listing structure.
+
+ **Voice:** Use your persona from `.claude/src/assistant-persona.md` when communicating with the user. Keep it conversational — no file paths or system details in user-facing output.
+
+ 
+
+ ---
+
+@@ -19,24 +19,25 @@
+ - **Specific URL** → crawl that page and its children
+
+ - **"resources only"** → focus on finding YouTube videos, PDFs, manuals, support links
+
+ 
+
+-Base URL: `https://{{CLIENT_WEBSITE}}`
+
++Base URL: `https://viperscaleracing.com`
+
+ 
+
+ ---
+
+ 
+
+ ## Step 2: Map the Category Navigation Tree
+
+ 
+
+-Start at the homepage. Find the main product navigation menu (or equivalent main navigation).
+
++Start at the homepage. Find the "Shop by Car Type" menu (or equivalent main navigation).
+
+ 
+
+-For each product category, map the subcategory tree:
+
++For each car type, map the subcategory tree:
+
+ 
+
+ ```
+
+-Main Navigation
+
+-└── Category A
+
+-    ├── Subcategory 1
+
+-    │   ├── Product Type → {{CLIENT_WEBSITE}}/product-category/...
+
++Shop by Car Type
+
++└── AFX
+
++    ├── Magnet Traction
+
++    │   ├── Tires → viperscaleracing.com/product-category/afx/magnet-traction/tires/
+
++    │   ├── Armatures → viperscaleracing.com/...
+
+     │   └── (other subcategories)
+
+-    └── (other variants)
+
+-└── Category B
+
++    └── (other AFX variants)
+
++└── Mega G+
+
+     └── ...
+
+ ```
+
+ 
+
+@@ -59,7 +60,7 @@
+ ## Step 4: Extract Resource Links
+
+ 
+
+ As you crawl, collect:
+
+-- **YouTube video embeds** — product assembly, setup, feature demos
+
++- **YouTube video embeds** — product assembly, track setup, feature demos
+
+ - **Downloadable PDFs** — manuals, guides, spec sheets
+
+ - **External support links** — software downloads, vendor support pages
+
+ - **Key product category URLs** — the most-linked-to category pages
+
+@@ -71,10 +72,10 @@
+ **`context/website-navigation.md`** — the full category tree with URLs and notes about search behavior:
+
+ 
+
+ ```markdown
+
+-# Website Navigation — {{CLIENT_WEBSITE}}
+
++# Website Navigation — viperscaleracing.com
+
+ 
+
+ ## How to Find Products
+
+-The primary navigation is the main product menu — select a category, then browse subcategories.
+
++The primary navigation is "Shop by Car Type" — select a chassis type, then browse subcategories.
+
+ The site search is limited — category browsing is more reliable for finding products.
+
+ 
+
+ ## Category Tree

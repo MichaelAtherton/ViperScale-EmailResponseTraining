@@ -1,0 +1,196 @@
+# Template: templates/skills/ingest-facebook.md
+# Vault:    .claude/skills/ingest-facebook/SKILL.md
+# Similarity: 94.83%
+# Change level: minimal
+
+## Template → Vault Diff
+
+--- template/templates/skills/ingest-facebook.md
++++ vault/.claude/skills/ingest-facebook/SKILL.md
+@@ -7,7 +7,7 @@
+ 
+
+ # /ingest-facebook
+
+ 
+
+-Process {{OWNER_NAME}}'s Facebook comment replies and DM responses in bulk, extracting Q&A pairs and filing them into the Facebook-specific knowledge base.
+
++Process Dan's Facebook comment replies and DM responses in bulk, extracting Q&A pairs and filing them into the Facebook-specific knowledge base.
+
+ **Voice:** Use your persona from `.claude/src/assistant-persona.md` when communicating with the user. Keep it conversational — no file paths or system details in user-facing output.
+
+ 
+
+ ---
+
+@@ -31,8 +31,8 @@
+ For each conversation thread:
+
+ 
+
+ 1. **Identify the channel type:** public comment or private DM?
+
+-2. **Extract the Q&A pair:** customer question/comment → {{OWNER_NAME}}'s response
+
+-3. **If it's a comment thread with multiple people:** extract {{OWNER_NAME}}'s responses to specific questions, not the full thread chatter
+
++2. **Extract the Q&A pair:** customer question/comment → Dan's response
+
++3. **If it's a comment thread with multiple people:** extract Dan's responses to specific questions, not the full thread chatter
+
+ 4. **If it's a DM conversation with back-and-forth:** extract the core Q&A — what did the customer need, what was the resolution?
+
+ 5. **Categorize** into the same 6 types as email:
+
+    - product-question, order-issue, warranty-return, stock-availability, pre-sales, setup-support
+
+@@ -42,7 +42,7 @@
+ ## Step 3: Deduplicate
+
+ 
+
+ Same as email ingestion — if the same question type appears many times, keep the 2-3 best examples:
+
+-- Most representative of {{OWNER_NAME}}'s Facebook tone
+
++- Most representative of Dan's Facebook tone
+
+ - Most complete answer
+
+ - Best examples of DM redirect (for public comments that needed to move private)
+
+ 
+
+@@ -64,14 +64,14 @@
+ [Was this on a product post? A Facebook Live? A general page comment? Note if other people were in the thread.]
+
+ 
+
+ ## Response
+
+-[{{OWNER_NAME}}'s actual reply — preserve their exact phrasing]
+
++[Dan's actual reply — preserve his exact phrasing]
+
+ 
+
+ ## Category
+
+ [product-question / order-issue / warranty-return / stock-availability / pre-sales / setup-support]
+
+ 
+
+ ## Notes
+
+ - [DM redirect used? What was the redirect phrase?]
+
+-- [Was someone else giving wrong info that {{OWNER_NAME}} corrected?]
+
++- [Was someone else giving wrong info that Dan corrected?]
+
+ - [Related products, SKUs, or links included]
+
+ ```
+
+ 
+
+@@ -84,7 +84,7 @@
+ [The customer's DM — preserve their exact words]
+
+ 
+
+ ## Response
+
+-[{{OWNER_NAME}}'s actual DM response — preserve their exact phrasing]
+
++[Dan's actual DM response — preserve his exact phrasing]
+
+ 
+
+ ## Category
+
+ [category]
+
+@@ -95,7 +95,7 @@
+ - [Resolution: what happened?]
+
+ ```
+
+ 
+
+-**File naming:** descriptive kebab-case slug: `product-recommendation-comment.md`, `wrong-parts-dm-resolution.md`
+
++**File naming:** descriptive kebab-case slug: `tire-recommendation-afx-comment.md`, `wrong-parts-dm-resolution.md`
+
+ 
+
+ ---
+
+ 
+
+@@ -103,10 +103,10 @@
+ 
+
+ While processing, look for patterns unique to Facebook that should be captured in `context/channels/facebook.md`:
+
+ 
+
+-- **{{OWNER_NAME}}'s actual Facebook phrasing** — how they start replies, sign off, use emoji
+
+-- **DM redirect patterns** — what phrases they use to move conversations private
+
+-- **Comment length** — how long their typical comment replies are
+
+-- **How they handle wrong information** in threads — do they correct directly? Politely redirect?
+
++- **Dan's actual Facebook phrasing** — how he starts replies, signs off, uses emoji
+
++- **DM redirect patterns** — what phrases he uses to move conversations private
+
++- **Comment length** — how long his typical comment replies are
+
++- **How he handles wrong information** in threads — does he correct directly? Politely redirect?
+
+ - **Any Facebook-specific product recommendations** — "I showed this on the Live last week"
+
+ 
+
+ Update `context/channels/facebook.md` with any new patterns found.
+
+@@ -131,15 +131,15 @@
+ DM redirects captured: W
+
+ Facebook tone patterns updated: [yes/no]
+
+ 
+
+-Flagged for review: [list any conversations where {{OWNER_NAME}}'s response was unclear or inconsistent]
+
++Flagged for review: [list any conversations where Dan's response was unclear or inconsistent]
+
+ ```
+
+ 
+
+ ---
+
+ 
+
+ ## Guardrails
+
+ 
+
+-- Preserve {{OWNER_NAME}}'s actual Facebook phrasing — don't rewrite to sound more "professional"
+
++- Preserve Dan's actual Facebook phrasing — don't rewrite to sound more "professional"
+
+ - Skip automated Facebook notifications, ads, and non-customer interactions
+
+ - If a thread has trolling or spam, skip it — don't train on those interactions
+
+-- Flag conversations where {{OWNER_NAME}}'s response contradicts email response patterns (may indicate a policy difference on social vs email)
+
++- Flag conversations where Dan's response contradicts email response patterns (may indicate a policy difference on social vs email)
+
+ - If a DM conversation is very long (10+ messages back and forth), extract the key Q&A rather than the full transcript

@@ -1,0 +1,25 @@
+# Template: scripts/first-meeting-check.sh
+# Vault:    .claude/hooks/first-meeting-check.sh
+# Similarity: 99.01%
+# Change level: minimal
+
+## Template → Vault Diff
+
+--- template/scripts/first-meeting-check.sh
++++ vault/.claude/hooks/first-meeting-check.sh
+@@ -25,7 +25,7 @@
+ cd "$VAULT_ROOT" || exit 0
+
+ if command -v git >/dev/null 2>&1 && git rev-parse --git-dir >/dev/null 2>&1; then
+
+   git add .claude/src/relationship.md
+
+-  git commit -m "{{COMMIT_PREFIX}}: first meeting — ${TODAY}" 2>/dev/null
+
++  git commit -m "vsr: first meeting — ${TODAY}" 2>/dev/null
+
+ fi
+
+ 
+
+ exit 0

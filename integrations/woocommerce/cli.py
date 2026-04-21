@@ -1,6 +1,6 @@
 """Viper Scale Racing — WooCommerce CLI.
 
-Read-only CLI for catalog queries. Called by Marshall (via the catalog-lookup skill)
+Read-only CLI for catalog queries. Called by Enzo (via the catalog-lookup skill)
 from /draft-reply at answer time. Returns standardized JSON envelopes on stdout.
 
 Subcommands: lookup, search, list, find, categories, get, variations.
@@ -42,7 +42,7 @@ from .config import ConfigError, load_config
 
 logger = logging.getLogger("viper.woocommerce.cli")
 
-# Fields Marshall cares about on a product result
+# Fields Enzo cares about on a product result
 PRODUCT_FIELDS = (
     "id",
     "name",
@@ -60,7 +60,7 @@ PRODUCT_FIELDS = (
     "slug",
 )
 
-# Fields Marshall cares about on a variation
+# Fields Enzo cares about on a variation
 VARIATION_FIELDS = (
     "id",
     "parent_id",

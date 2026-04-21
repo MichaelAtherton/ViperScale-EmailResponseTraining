@@ -1,0 +1,115 @@
+# Template: templates/skills/ingest-catalog.md
+# Vault:    .claude/skills/ingest-catalog/SKILL.md
+# Similarity: 90.91%
+# Change level: minimal
+
+## Template → Vault Diff
+
+--- template/templates/skills/ingest-catalog.md
++++ vault/.claude/skills/ingest-catalog/SKILL.md
+@@ -25,7 +25,7 @@
+ Extract for each product:
+
+ - **SKU** — unique product identifier
+
+ - **Name** — product title
+
+-- **Category path** — the full category hierarchy (e.g., "Category > Subcategory > Product Type")
+
++- **Category path** — the full category hierarchy (e.g., "AFX > Magnet Traction > Tires")
+
+ - **Price** — regular price
+
+ - **Stock status** — in stock, out of stock, on backorder
+
+ - **Stock quantity** — if available
+
+@@ -37,12 +37,11 @@
+ 
+
+ ## Step 3: Group by Category
+
+ 
+
+-Organize products by their top-level category / product type:
+
+-<!-- client-specific: replace with actual product categories from the client's catalog -->
+
+-- Category A
+
+-- Category B
+
+-- Category C
+
+-- Accessories
+
++Organize products by their top-level car type / category:
+
++- AFX (Magnet Traction, etc.)
+
++- Mega G+
+
++- Production Modified
+
++- Tracks and Accessories
+
+ - (other categories as they appear in the data)
+
+ 
+
+ ---
+
+@@ -58,7 +57,8 @@
+ 
+
+ | SKU | Name | Price | In Stock | Notes |
+
+ |-----|------|-------|----------|-------|
+
+-<!-- client-specific: populate with actual product data -->
+
++| 420 | Rear Tire - Magnet Traction | $X.XX | Yes | |
+
++| 405 | Front End - Magnet Traction | $X.XX | Yes | |
+
+ ```
+
+ 
+
+ For variable listings, show the parent product and its variations:
+
+@@ -69,7 +69,8 @@
+ 
+
+ | Variation | SKU | Price | In Stock |
+
+ |-----------|-----|-------|----------|
+
+-<!-- client-specific: populate with actual variation data -->
+
++| Color: Red | 420-R | $X.XX | Yes |
+
++| Color: Blue | 420-B | $X.XX | No |
+
+ ```
+
+ 
+
+ ---
+
+@@ -78,7 +79,7 @@
+ 
+
+ After writing product files, check `knowledge/product-rules/` for:
+
+ - Products mentioned in compatibility rules that aren't in the catalog (flag these)
+
+-- Catalog products that have no compatibility rules yet (note for {{OWNER_NAME}} to review)
+
++- Catalog products that have no compatibility rules yet (note for Dan to review)
+
+ 
+
+ ---
+
+ 
