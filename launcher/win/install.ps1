@@ -200,10 +200,21 @@ foreach ($candidate in @("python", "python3")) {
 
 if (-not $pythonCmd) {
     Write-Host "  --  Python 3.11+ not found. Installing..." -ForegroundColor Yellow
+    $pyInstalled = $false
+
+    # Try winget first
     if (Get-Command winget -ErrorAction SilentlyContinue) {
         Log "ACTION install python via winget"
         winget install --id Python.Python.3.11 --scope user --silent --accept-package-agreements --accept-source-agreements
-        if ($LASTEXITCODE -ne 0) { FailExit "Python install failed (winget exit code $LASTEXITCODE)" }
+        if ($LASTEXITCODE -eq 0) {
+            $pyInstalled = $true
+        } else {
+            Write-Host "  !!  winget install failed (restricted capabilities or old winget)." -ForegroundColor Yellow
+            Log "WARN winget python install failed exit code $LASTEXITCODE"
+        }
+    }
+
+    if ($pyInstalled) {
         RefreshPath
         Start-Sleep -Seconds 2
         RefreshPath
@@ -215,8 +226,15 @@ if (-not $pythonCmd) {
         Write-Host "  OK  Python installed" -ForegroundColor Green
         Log "VERIFY python: installed"
     } else {
+        Write-Host ""
+        Write-Host "  Please install Python manually:" -ForegroundColor Yellow
+        Write-Host "    1. Download from https://www.python.org/downloads/" -ForegroundColor Cyan
+        Write-Host "    2. Run the installer" -ForegroundColor Cyan
+        Write-Host "    3. IMPORTANT: Check 'Add Python to PATH' at the bottom" -ForegroundColor Cyan
+        Write-Host "    4. Click 'Install Now'" -ForegroundColor Cyan
+        Write-Host "    5. After it finishes, run START-HERE again" -ForegroundColor Cyan
         Start-Process "https://www.python.org/downloads/"
-        FailExit "Install Python 3.11+, then run START-HERE again."
+        FailExit "Install Python 3.11+ with 'Add to PATH' checked, then run START-HERE again."
     }
 } else {
     $pyVer = & $pythonCmd --version 2>&1
