@@ -345,10 +345,13 @@ if (-not (Test-Path $envPath)) {
 Write-Host ""
 Write-Host "  [5/5] Creating desktop shortcut..." -ForegroundColor Yellow
 
-$shortcutPath = Join-Path $env:USERPROFILE "Desktop\Enzo.lnk"
+# Use Shell API to get the real Desktop path (handles OneDrive redirection)
 $shell = New-Object -ComObject WScript.Shell
+$desktopPath = $shell.SpecialFolders("Desktop")
+$shortcutPath = Join-Path $desktopPath "Enzo.lnk"
 $shortcut = $shell.CreateShortcut($shortcutPath)
-$shortcut.TargetPath = Join-Path $ProjectRoot "launch.bat"
+$launcherDir = Join-Path $ProjectRoot "launcher\win"
+$shortcut.TargetPath = Join-Path $launcherDir "launch.bat"
 $shortcut.WorkingDirectory = $ProjectRoot
 $icoPath = Join-Path $ProjectRoot "assets\viper.ico"
 if (Test-Path $icoPath) {
