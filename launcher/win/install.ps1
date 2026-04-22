@@ -8,7 +8,10 @@ param(
 
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-$script:LogPath = Join-Path $PSScriptRoot ".install-log.txt"
+
+# install.ps1 lives at launcher\win\ — project root is two levels up
+$ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
+$script:LogPath = Join-Path $ProjectRoot ".install-log.txt"
 
 function Log([string]$event) {
     $ts = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
@@ -81,10 +84,10 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
 # ── Scene 2.5: Initialize git repo ────────────────────────
 $repoUrl = "https://github.com/MichaelAtherton/ViperScale-EmailResponseTraining.git"
 
-if (-not (Test-Path (Join-Path $PSScriptRoot ".git"))) {
+if (-not (Test-Path (Join-Path $ProjectRoot ".git"))) {
     Write-Host ""
     Write-Host "  [..] Setting up update channel..." -ForegroundColor Yellow
-    Push-Location $PSScriptRoot
+    Push-Location $ProjectRoot
     try {
         git init 2>&1 | Out-Null
         git remote add origin $repoUrl 2>&1 | Out-Null
@@ -244,10 +247,10 @@ if (-not $pythonCmd) {
 
 # Create venv + install WC dependencies
 Write-Host "  --  Setting up WooCommerce integration..." -ForegroundColor Yellow
-$venvPath = Join-Path $PSScriptRoot "integrations\woocommerce\.venv"
+$venvPath = Join-Path $ProjectRoot "integrations\woocommerce\.venv"
 $venvPython = Join-Path $venvPath "Scripts\python.exe"
 $venvPip = Join-Path $venvPath "Scripts\pip.exe"
-$reqsPath = Join-Path $PSScriptRoot "integrations\woocommerce\requirements.txt"
+$reqsPath = Join-Path $ProjectRoot "integrations\woocommerce\requirements.txt"
 
 if (-not (Test-Path $venvPython)) {
     & $pythonCmd -m venv $venvPath
@@ -268,7 +271,7 @@ Log "VERIFY woocommerce imports OK"
 Write-Host ""
 Write-Host "  [4/5] WooCommerce Connection" -ForegroundColor Yellow
 
-$envPath = Join-Path $PSScriptRoot ".env"
+$envPath = Join-Path $ProjectRoot ".env"
 
 if (Test-Path $envPath) {
     Write-Host ""
@@ -330,9 +333,9 @@ Write-Host "  [5/5] Creating desktop shortcut..." -ForegroundColor Yellow
 $shortcutPath = Join-Path $env:USERPROFILE "Desktop\Enzo.lnk"
 $shell = New-Object -ComObject WScript.Shell
 $shortcut = $shell.CreateShortcut($shortcutPath)
-$shortcut.TargetPath = Join-Path $PSScriptRoot "launch.bat"
-$shortcut.WorkingDirectory = $PSScriptRoot
-$icoPath = Join-Path $PSScriptRoot "assets\viper.ico"
+$shortcut.TargetPath = Join-Path $ProjectRoot "launch.bat"
+$shortcut.WorkingDirectory = $ProjectRoot
+$icoPath = Join-Path $ProjectRoot "assets\viper.ico"
 if (Test-Path $icoPath) {
     $shortcut.IconLocation = $icoPath
 }
@@ -346,7 +349,7 @@ Write-Host ""
 Write-Host "  Warming up the WooCommerce catalog..." -ForegroundColor Yellow
 $bashExe = (Get-Command bash -ErrorAction SilentlyContinue).Source
 if ($bashExe) {
-    Push-Location $PSScriptRoot
+    Push-Location $ProjectRoot
     try {
         & $bashExe "scripts/wc.sh" health 2>$null | Out-Null
         Write-Host "  OK  Catalog ready" -ForegroundColor Green
