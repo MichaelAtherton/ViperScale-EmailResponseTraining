@@ -118,11 +118,31 @@ if (Get-Command claude -ErrorAction SilentlyContinue) {
     } catch {
         FailExit "Claude Code install failed: $_"
     }
+    Start-Sleep -Seconds 3
     RefreshPath
-    Start-Sleep -Seconds 2
-    RefreshPath
-    if (-not (Get-Command claude -ErrorAction SilentlyContinue)) {
-        FailExit "Claude Code installed but not found in PATH. Close this window, reopen, and run START-HERE again."
+
+    # Check PATH first, then fall back to known install location
+    $claudeFound = $false
+    if (Get-Command claude -ErrorAction SilentlyContinue) {
+        $claudeFound = $true
+    } else {
+        # Claude Code installs to %USERPROFILE%\.local\bin\ -- add it manually
+        $claudeDir = Join-Path $env:USERPROFILE ".local\bin"
+        $claudeExe = Join-Path $claudeDir "claude.exe"
+        if (Test-Path $claudeExe) {
+            $env:PATH = "$claudeDir;$env:PATH"
+            $claudeFound = $true
+            Log "ACTION added $claudeDir to PATH manually"
+        }
+    }
+
+    if (-not $claudeFound) {
+        Write-Host ""
+        Write-Host "  Claude Code may have installed but PATH didn't update." -ForegroundColor Yellow
+        Write-Host "  Try closing this window, opening a NEW PowerShell, and running:" -ForegroundColor Yellow
+        Write-Host "    claude --version" -ForegroundColor Cyan
+        Write-Host "  If that works, run START-HERE again and it will find Claude." -ForegroundColor Yellow
+        FailExit "Claude Code not found in PATH after install."
     }
     Write-Host "  OK  Claude Code installed" -ForegroundColor Green
     Log "VERIFY claude: installed"
