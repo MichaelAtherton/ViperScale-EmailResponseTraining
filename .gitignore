@@ -33,3 +33,9 @@ scratch/
 
 # Install artifacts (per-machine)
 .install-log.txt
+
+# Node.js (chat UI server)
+launcher/win/node_modules/
+
+# Enzo runtime state
+.enzo/threads.json
