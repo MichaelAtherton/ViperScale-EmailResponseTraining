@@ -1,7 +1,7 @@
 /* global React, EnzoMark, UserAvatar, Icons */
 const { useState: useStateSB, useMemo: useMemoSB } = React;
 
-function Sidebar({ threads, activeId, onSelect, onNew, onDeleteThread, onPinThread, onRenameThread, collapsed, onToggleCollapsed }) {
+function Sidebar({ threads, activeId, onSelect, onNew, onDeleteThread, onPinThread, onRenameThread, collapsed, onToggleCollapsed, config }) {
   const [query, setQuery] = useStateSB("");
   const [menuFor, setMenuFor] = useStateSB(null);
   const [renamingId, setRenamingId] = useStateSB(null);
@@ -10,28 +10,19 @@ function Sidebar({ threads, activeId, onSelect, onNew, onDeleteThread, onPinThre
   const filtered = useMemoSB(() => {
     const q = query.trim().toLowerCase();
     if (!q) return threads;
-    return threads.filter(t =>
-      t.title.toLowerCase().includes(q) ||
-      (t.folder && t.folder.toLowerCase().includes(q))
-    );
+    return threads.filter(t => t.title.toLowerCase().includes(q));
   }, [threads, query]);
 
   const pinned = filtered.filter(t => t.pinned);
-  const byFolder = {};
-  filtered.filter(t => !t.pinned).forEach(t => {
-    const key = t.folder || "General";
-    (byFolder[key] = byFolder[key] || []).push(t);
-  });
-  const folderOrder = ["Customer Support", "Product", "Business", "SCDRL", "General"];
-  const sortedFolders = Object.keys(byFolder).sort((a, b) => {
-    const ai = folderOrder.indexOf(a); const bi = folderOrder.indexOf(b);
-    if (ai === -1 && bi === -1) return a.localeCompare(b);
-    if (ai === -1) return 1; if (bi === -1) return -1;
-    return ai - bi;
+  const recent = filtered.filter(t => !t.pinned).sort((a, b) => {
+    const ta = new Date(a.lastMessage || 0).getTime();
+    const tb = new Date(b.lastMessage || 0).getTime();
+    return tb - ta;
   });
 
   function relTime(ts) {
-    const diff = Date.now() - ts;
+    if (!ts) return "";
+    const diff = Date.now() - new Date(ts).getTime();
     const m = Math.floor(diff / 60000);
     if (m < 1) return "now";
     if (m < 60) return `${m}m`;
@@ -50,6 +41,11 @@ function Sidebar({ threads, activeId, onSelect, onNew, onDeleteThread, onPinThre
     setRenamingId(null);
   }
 
+  const userName = config?.userName || "Team";
+  const userRole = config?.userRole || "User";
+  const appName = config?.appName || "Enzo";
+  const subtitle = config?.subtitle || "AI Assistant";
+
   if (collapsed) {
     return (
       <aside style={{ width: 56, background: "var(--bg1)", borderRight: "1px solid var(--steel)", display: "flex", flexDirection: "column", alignItems: "center", padding: "14px 0", gap: 10 }}>
@@ -64,17 +60,15 @@ function Sidebar({ threads, activeId, onSelect, onNew, onDeleteThread, onPinThre
 
   return (
     <aside style={{ width: 296, background: "var(--bg1)", borderRight: "1px solid var(--steel)", display: "flex", flexDirection: "column", minHeight: 0 }}>
-      {/* Logo header */}
       <div style={{ padding: "16px 18px 14px", borderBottom: "1px solid var(--steel)", display: "flex", alignItems: "center", gap: 10 }}>
         <EnzoMark size={34}/>
         <div style={{ flex: 1, lineHeight: 1 }}>
-          <div style={{ fontFamily: "Nunito, sans-serif", fontWeight: 900, fontSize: 18, color: "var(--bone)", letterSpacing: "-0.03em" }}>Enzo</div>
-          <div style={{ fontSize: 10, color: "var(--venom)", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", marginTop: 3 }}>Viper Shop Assistant</div>
+          <div style={{ fontFamily: "Nunito, sans-serif", fontWeight: 900, fontSize: 18, color: "var(--bone)", letterSpacing: "-0.03em" }}>{appName}</div>
+          <div style={{ fontSize: 10, color: "var(--venom)", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", marginTop: 3 }}>{subtitle}</div>
         </div>
         <button onClick={onToggleCollapsed} className="icon-btn" title="Collapse"><Icons.menu/></button>
       </div>
 
-      {/* New chat */}
       <div style={{ padding: "14px 14px 10px" }}>
         <button onClick={onNew} style={{
           width: "100%", height: 42,
@@ -92,7 +86,6 @@ function Sidebar({ threads, activeId, onSelect, onNew, onDeleteThread, onPinThre
         </button>
       </div>
 
-      {/* Search */}
       <div style={{ padding: "0 14px 10px" }}>
         <div style={{ position: "relative" }}>
           <div style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", color: "var(--fg3)", pointerEvents: "none" }}><Icons.search/></div>
@@ -108,7 +101,6 @@ function Sidebar({ threads, activeId, onSelect, onNew, onDeleteThread, onPinThre
         </div>
       </div>
 
-      {/* Thread list */}
       <div style={{ flex: 1, overflowY: "auto", padding: "4px 8px 14px" }}>
         {pinned.length > 0 && (
           <>
@@ -128,10 +120,10 @@ function Sidebar({ threads, activeId, onSelect, onNew, onDeleteThread, onPinThre
             ))}
           </>
         )}
-        {sortedFolders.map(folder => (
-          <div key={folder}>
-            <SectionHeader label={folder} icon={<Icons.folder/>}/>
-            {byFolder[folder].map(t => (
+        {recent.length > 0 && (
+          <>
+            <SectionHeader label="Recent" icon={<Icons.sparkles/>}/>
+            {recent.map(t => (
               <ThreadRow key={t.id}
                 t={t} active={t.id === activeId} relTime={relTime}
                 onSelect={() => onSelect(t.id)}
@@ -144,21 +136,20 @@ function Sidebar({ threads, activeId, onSelect, onNew, onDeleteThread, onPinThre
                 commitRename={commitRename}
               />
             ))}
-          </div>
-        ))}
+          </>
+        )}
         {filtered.length === 0 && (
           <div style={{ padding: "40px 20px", textAlign: "center", color: "var(--fg3)", fontSize: 13 }}>
-            No threads match "{query}"
+            {query ? `No threads match "${query}"` : "No conversations yet. Start a new chat!"}
           </div>
         )}
       </div>
 
-      {/* User footer */}
       <div style={{ padding: "12px 14px", borderTop: "1px solid var(--steel)", display: "flex", alignItems: "center", gap: 10, background: "#14181b" }}>
-        <UserAvatar name="Ray Chen" size={32}/>
+        <UserAvatar name={userName} size={32}/>
         <div style={{ flex: 1, minWidth: 0, lineHeight: 1.2 }}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: "var(--bone)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>Ray Chen</div>
-          <div style={{ fontSize: 11, color: "var(--fg3)" }}>Shop Owner · VSR</div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: "var(--bone)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{userName}</div>
+          <div style={{ fontSize: 11, color: "var(--fg3)" }}>{userRole}</div>
         </div>
         <button className="icon-btn" title="Settings"><Icons.settings/></button>
       </div>
@@ -181,74 +172,45 @@ function SectionHeader({ label, icon }) {
 function ThreadRow({ t, active, relTime, onSelect, onMenu, menuOpen, onPin, onDelete, onRenameStart, renaming, renameText, setRenameText, commitRename }) {
   const [hover, setHover] = useStateSB(false);
   return (
-    <div
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      style={{ position: "relative" }}
-    >
-      <button
-        onClick={onSelect}
-        style={{
-          display: "block", width: "100%", textAlign: "left",
-          background: active ? "rgba(122,242,1,0.08)" : hover ? "rgba(255,255,255,0.03)" : "transparent",
-          border: 0, borderLeft: active ? "2px solid var(--venom)" : "2px solid transparent",
-          padding: "9px 10px 9px 12px", cursor: "pointer", color: "var(--bone)",
-          transition: "background var(--dur-micro) var(--ease)", borderRadius: 6, marginBottom: 1
-        }}
-      >
+    <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} style={{ position: "relative" }}>
+      <button onClick={onSelect} style={{
+        display: "block", width: "100%", textAlign: "left",
+        background: active ? "rgba(122,242,1,0.08)" : hover ? "rgba(255,255,255,0.03)" : "transparent",
+        border: 0, borderLeft: active ? "2px solid var(--venom)" : "2px solid transparent",
+        padding: "9px 10px 9px 12px", cursor: "pointer", color: "var(--bone)",
+        transition: "background var(--dur-micro) var(--ease)", borderRadius: 6, marginBottom: 1
+      }}>
         <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
           {t.pinned && <span style={{ color: "var(--venom)", display: "inline-flex", opacity: 0.8 }}><Icons.pin/></span>}
           {renaming ? (
-            <input
-              autoFocus
-              value={renameText}
-              onChange={e => setRenameText(e.target.value)}
-              onClick={e => e.stopPropagation()}
-              onBlur={commitRename}
-              onKeyDown={e => { if (e.key === "Enter") commitRename(); if (e.key === "Escape") commitRename(); }}
-              style={{
-                flex: 1, background: "#0a0d10", border: "1px solid var(--venom)",
-                color: "var(--bone)", fontSize: 13, fontWeight: 700, padding: "2px 6px",
-                borderRadius: 4, fontFamily: "inherit", outline: "none"
-              }}
+            <input autoFocus value={renameText} onChange={e => setRenameText(e.target.value)}
+              onClick={e => e.stopPropagation()} onBlur={commitRename}
+              onKeyDown={e => { if (e.key === "Enter" || e.key === "Escape") commitRename(); }}
+              style={{ flex: 1, background: "#0a0d10", border: "1px solid var(--venom)", color: "var(--bone)", fontSize: 13, fontWeight: 700, padding: "2px 6px", borderRadius: 4, fontFamily: "inherit", outline: "none" }}
             />
           ) : (
-            <div style={{ fontSize: 13, fontWeight: 700, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flex: 1, color: active ? "var(--bone)" : "var(--fg1-light)" }}>
-              {t.title}
-            </div>
+            <div style={{ fontSize: 13, fontWeight: 700, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flex: 1, color: active ? "var(--bone)" : "var(--fg1-light)" }}>{t.title}</div>
           )}
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11, color: "var(--fg3)" }}>
-          <span style={{
-            fontSize: 9, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase",
-            color: "var(--fg2)", background: "rgba(255,255,255,0.04)",
-            padding: "1px 5px", borderRadius: 3
-          }}>{t.folder || "General"}</span>
-          <span style={{ marginLeft: "auto", fontFamily: "JetBrains Mono, monospace" }}>{relTime(t.updated)}</span>
+          <span style={{ marginLeft: "auto", fontFamily: "JetBrains Mono, monospace" }}>{relTime(t.lastMessage || t.updated)}</span>
         </div>
       </button>
       {(hover || menuOpen) && !renaming && (
-        <button
-          onClick={(e) => { e.stopPropagation(); onMenu(); }}
-          style={{
-            position: "absolute", right: 4, top: 8,
-            width: 24, height: 24, border: 0, borderRadius: 4,
-            background: menuOpen ? "var(--steel)" : "rgba(10,13,16,0.8)",
-            color: "var(--fg2)", cursor: "pointer",
-            display: "flex", alignItems: "center", justifyContent: "center"
-          }}
-        ><Icons.more/></button>
+        <button onClick={(e) => { e.stopPropagation(); onMenu(); }} style={{
+          position: "absolute", right: 4, top: 8, width: 24, height: 24, border: 0, borderRadius: 4,
+          background: menuOpen ? "var(--steel)" : "rgba(10,13,16,0.8)", color: "var(--fg2)", cursor: "pointer",
+          display: "flex", alignItems: "center", justifyContent: "center"
+        }}><Icons.more/></button>
       )}
       {menuOpen && (
         <div style={{
           position: "absolute", right: 4, top: 36, zIndex: 20,
           background: "#14181b", border: "1px solid var(--steel)", borderRadius: 8,
-          boxShadow: "0 12px 32px rgba(0,0,0,0.6)", minWidth: 160, overflow: "hidden",
-          padding: 4
+          boxShadow: "0 12px 32px rgba(0,0,0,0.6)", minWidth: 160, overflow: "hidden", padding: 4
         }}>
           <MenuItem icon={<Icons.pin/>} label={t.pinned ? "Unpin" : "Pin"} onClick={onPin}/>
           <MenuItem icon={<Icons.edit/>} label="Rename" onClick={onRenameStart}/>
-          <MenuItem icon={<Icons.archive/>} label="Archive" onClick={onMenu}/>
           <div style={{ height: 1, background: "var(--steel)", margin: "4px 0" }}/>
           <MenuItem icon={<Icons.trash/>} label="Delete" danger onClick={onDelete}/>
         </div>
@@ -261,10 +223,10 @@ function MenuItem({ icon, label, onClick, danger }) {
   return (
     <button onClick={onClick} style={{
       display: "flex", alignItems: "center", gap: 10, width: "100%",
-      background: "transparent", border: 0,
-      padding: "8px 10px", color: danger ? "var(--race-red)" : "var(--bone)",
-      cursor: "pointer", fontSize: 13, fontFamily: "inherit", textAlign: "left",
-      borderRadius: 4, transition: "background var(--dur-micro)"
+      background: "transparent", border: 0, padding: "8px 10px",
+      color: danger ? "var(--race-red)" : "var(--bone)", cursor: "pointer",
+      fontSize: 13, fontFamily: "inherit", textAlign: "left", borderRadius: 4,
+      transition: "background var(--dur-micro)"
     }}
     onMouseEnter={e => e.currentTarget.style.background = danger ? "rgba(230,57,70,0.12)" : "rgba(255,255,255,0.05)"}
     onMouseLeave={e => e.currentTarget.style.background = "transparent"}
