@@ -1,9 +1,10 @@
 /* global React, EnzoMark, UserAvatar, Icons, TypingDots, ProductRef, OrderRef, StatGrid, SUGGESTIONS_HOME, QUICK_ACTIONS, enzoReply, parseLinks, copyMessageForEmail, copyMessageAsText */
 const { useState: useS_C, useEffect: useE_C, useRef: useR_C } = React;
 
-function ChatPane({ thread, onSend, onNewFromHome, onTitleEdit }) {
+function ChatPane({ thread, onSend, onNewFromHome, onTitleEdit, config, typing: externalTyping }) {
   const [input, setInput] = useS_C("");
   const [typing, setTyping] = useS_C(false);
+  const isTyping = typing || externalTyping;
   const [titleEditing, setTitleEditing] = useS_C(false);
   const [titleText, setTitleText] = useS_C("");
   const bodyRef = useR_C();
@@ -11,7 +12,7 @@ function ChatPane({ thread, onSend, onNewFromHome, onTitleEdit }) {
 
   useE_C(() => {
     if (bodyRef.current) bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
-  }, [thread?.messages, typing]);
+  }, [thread?.messages, isTyping]);
 
   useE_C(() => { setTyping(false); }, [thread?.id]);
 
@@ -68,10 +69,6 @@ function ChatPane({ thread, onSend, onNewFromHome, onTitleEdit }) {
                   fontFamily: "Nunito, sans-serif", fontWeight: 800, fontSize: 16,
                   letterSpacing: "-0.015em", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 520
                 }}>{thread.title}</span>
-                <span style={{
-                  fontSize: 10, color: "var(--venom)", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase",
-                  padding: "3px 7px", background: "rgba(122,242,1,0.08)", border: "1px solid rgba(122,242,1,0.25)", borderRadius: 3
-                }}>{thread.folder || "General"}</span>
               </button>
             )
           ) : (
@@ -95,8 +92,17 @@ function ChatPane({ thread, onSend, onNewFromHome, onTitleEdit }) {
       <div ref={bodyRef} style={{ flex: 1, overflowY: "auto", padding: isHome ? "20px" : "28px 24px 40px" }}>
         {isHome ? <HomeScreen onSend={handleSend}/> : (
           <div style={{ maxWidth: 760, margin: "0 auto", display: "flex", flexDirection: "column", gap: 20 }}>
+            {thread.messages.length === 0 && thread.title !== "New chat" && (
+              <div className="fade-in" style={{
+                background: "var(--bg2)", border: "1px solid var(--steel)",
+                borderRadius: 8, padding: "16px 20px", marginBottom: 20,
+                color: "var(--fg3)", fontSize: 14, lineHeight: 1.5, textAlign: "center"
+              }}>
+                Earlier messages in this conversation aren't displayed, but Enzo remembers the full context. Just keep chatting.
+              </div>
+            )}
             {thread.messages.map((m, i) => <MessageRow key={i} m={m} isLast={i === thread.messages.length - 1}/>)}
-            {typing && (
+            {isTyping && (
               <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
                 <EnzoMark size={32}/>
                 <div style={{
