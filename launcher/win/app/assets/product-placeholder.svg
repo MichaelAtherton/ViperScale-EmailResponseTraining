@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 360" width="320" height="360">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1a1f26"></stop>
+      <stop offset="1" stop-color="#0a0d10"></stop>
+    </linearGradient>
+    <radialGradient id="spot" cx="0.5" cy="0.6" r="0.6">
+      <stop offset="0" stop-color="#16c172" stop-opacity="0.18"></stop>
+      <stop offset="1" stop-color="#16c172" stop-opacity="0"></stop>
+    </radialGradient>
+  </defs>
+  <rect width="320" height="360" fill="url(#bg)"></rect>
+  <rect width="320" height="360" fill="url(#spot)"></rect>
+  
+  <g transform="translate(26 170)" fill="#2a323c" stroke="#3a434f" stroke-width="1">
+    <path d="M10 60 &#xA;             Q 30 20 90 14 &#xA;             L 190 10 &#xA;             Q 240 10 258 34 &#xA;             L 268 52 &#xA;             Q 268 72 246 74 &#xA;             L 22 74 &#xA;             Q 6 74 10 60 Z"></path>
+    
+    <path d="M80 22 L170 18 L200 40 L90 44 Z" fill="#0a0d10"></path>
+    
+    <rect x="70" y="46" width="140" height="6" fill="#16c172"></rect>
+    
+    <circle cx="60" cy="78" r="14" fill="#0a0d10" stroke="#c9ced6" stroke-width="2"></circle>
+    <circle cx="210" cy="78" r="14" fill="#0a0d10" stroke="#c9ced6" stroke-width="2"></circle>
+    <circle cx="60" cy="78" r="4" fill="#c9ced6"></circle>
+    <circle cx="210" cy="78" r="4" fill="#c9ced6"></circle>
+  </g>
+  
+  <g opacity="0.5" stroke="#16c172" stroke-width="2" stroke-linecap="round">
+    <line x1="0" y1="210" x2="28" y2="210"></line>
+    <line x1="0" y1="222" x2="18" y2="222"></line>
+    <line x1="0" y1="238" x2="36" y2="238"></line>
+    <line x1="294" y1="210" x2="320" y2="210"></line>
+    <line x1="300" y1="222" x2="320" y2="222"></line>
+    <line x1="286" y1="238" x2="320" y2="238"></line>
+  </g>
+  <text x="50%" y="320" text-anchor="middle" font-family="Oswald, sans-serif" font-size="12" letter-spacing="3" fill="#7a828c">PRODUCT IMAGE</text>
+</svg>

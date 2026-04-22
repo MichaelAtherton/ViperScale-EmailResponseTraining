@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 60" width="480" height="60" preserveAspectRatio="none">
+  <pattern id="ck" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+    <rect x="0" y="0" width="10" height="10" fill="#f5f2ea"></rect>
+    <rect x="10" y="10" width="10" height="10" fill="#f5f2ea"></rect>
+    <rect x="10" y="0" width="10" height="10" fill="#0a0d10"></rect>
+    <rect x="0" y="10" width="10" height="10" fill="#0a0d10"></rect>
+  </pattern>
+  <rect width="480" height="60" fill="url(#ck)"></rect>
+</svg>

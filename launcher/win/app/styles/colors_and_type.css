@@ -1,0 +1,226 @@
+/* =========================================================
+   Viper Scale Racing — Colors & Type
+   Design tokens for the VSR marketing site, SCDRL league
+   surfaces, and the Enzo chatbot assistant.
+   ========================================================= */
+
+/* --------- Fonts (Google Fonts substitutes — see README) ---- */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+:root {
+  /* ===================== CORE PALETTE ===================== */
+  /* Sampled from the live site (viperscaleracing.com) */
+  --vsr-venom:        #7af201;   /* Viper neon-lime — primary accent / nav bar / CTA */
+  --vsr-venom-600:    #6bd400;
+  --vsr-venom-700:    #56ae00;
+  --vsr-venom-200:    #c6f894;
+  --vsr-venom-50:     #eefddb;
+
+  --vsr-chassis:      #202628;   /* header band — warm near-black */
+  --vsr-graphite:     #2b3234;   /* card on chassis */
+  --vsr-steel:        #3c4346;   /* raised / border on chassis */
+  --vsr-iron:         #525a5d;
+
+  --vsr-bone:         #ffffff;   /* page background — pure white */
+  --vsr-paper:        #e4e6e6;   /* off-white neutral panel on light */
+  --vsr-chrome:       #c2c6c7;   /* metallic neutral border on light */
+  --vsr-silver:       #8e9394;
+  --vsr-smoke:        #6d7071;   /* wordmark gray — secondary text on light */
+
+  --vsr-race-red:     #e63946;   /* urgency / destructive */
+  --vsr-race-red-600: #cc2f3b;
+  --vsr-flag-yellow:  #f2c14e;   /* caution / new / pending */
+  --vsr-flag-yellow-600: #d9a733;
+
+  /* ===================== SEMANTIC: SURFACES ===============
+     The live site is LIGHT-THEME with a dark header band.
+     bg1 = white page, bg-dark = header/footer chassis band. */
+  --vsr-bg1: var(--vsr-bone);     /* primary page background (white) */
+  --vsr-bg2: var(--vsr-paper);    /* soft panel on page */
+  --vsr-bg3: #f5f6f6;             /* lightest fill */
+  --vsr-bg-dark: var(--vsr-chassis); /* header / footer band */
+
+  /* ===================== SEMANTIC: TEXT =================== */
+  --vsr-fg1: #1a1d1e;             /* primary ink on light */
+  --vsr-fg2: var(--vsr-smoke);    /* secondary */
+  --vsr-fg3: var(--vsr-silver);   /* muted */
+  --vsr-fg-on-dark: #ffffff;      /* primary on the dark header band */
+
+  /* ===================== SEMANTIC: INTENT ================= */
+  --vsr-accent:  var(--vsr-venom);
+  --vsr-danger:  var(--vsr-race-red);
+  --vsr-warn:    var(--vsr-flag-yellow);
+  --vsr-ok:      var(--vsr-venom);
+
+  /* ===================== BORDERS ========================== */
+  --vsr-border-1: 1px solid var(--vsr-steel);
+  --vsr-border-2: 1.5px solid var(--vsr-chrome);
+  --vsr-border-accent: 2px solid var(--vsr-venom);
+
+  /* ===================== RADII ============================ */
+  --vsr-r-xs: 4px;
+  --vsr-r-sm: 8px;
+  --vsr-r-md: 12px;
+  --vsr-r-lg: 16px;
+  --vsr-r-pill: 999px;
+  --vsr-r-poster: 0px;
+
+  /* ===================== SPACING ========================== */
+  --vsr-s-1: 4px;
+  --vsr-s-2: 8px;
+  --vsr-s-3: 12px;
+  --vsr-s-4: 16px;
+  --vsr-s-5: 24px;
+  --vsr-s-6: 32px;
+  --vsr-s-7: 48px;
+  --vsr-s-8: 64px;
+  --vsr-s-9: 96px;
+
+  /* ===================== SHADOWS / GLOWS ================== */
+  --vsr-elev-1: 0 1px 0 rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.6);
+  --vsr-elev-2: 0 4px 12px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.6);
+  --vsr-elev-3: 0 12px 32px rgba(0,0,0,0.6), 0 4px 8px rgba(0,0,0,0.5);
+  --vsr-glow-venom:  0 0 0 3px rgba(22,193,114,0.35);
+  --vsr-glow-danger: 0 0 0 3px rgba(230,57,70,0.30);
+
+  /* ===================== MOTION =========================== */
+  --vsr-ease-launch: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --vsr-ease-std:    cubic-bezier(0.4, 0.0, 0.2, 1);
+  --vsr-dur-micro: 120ms;
+  --vsr-dur-sm:    200ms;
+  --vsr-dur-md:    320ms;
+  --vsr-dur-lg:    600ms;
+
+  /* ===================== TYPE FAMILIES ==================== */
+  --vsr-font-display: "Nunito", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --vsr-font-body:    "Nunito", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --vsr-font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* ===================== TYPE TOKENS ====================== */
+  /* Display */
+  --vsr-display-xl-size: 72px;  --vsr-display-xl-lh: 76px; --vsr-display-xl-weight: 700;
+  --vsr-display-lg-size: 56px;  --vsr-display-lg-lh: 60px; --vsr-display-lg-weight: 700;
+
+  /* Headings */
+  --vsr-h1-size: 48px; --vsr-h1-lh: 54px; --vsr-h1-weight: 700;
+  --vsr-h2-size: 32px; --vsr-h2-lh: 38px; --vsr-h2-weight: 600;
+  --vsr-h3-size: 22px; --vsr-h3-lh: 28px; --vsr-h3-weight: 700;
+  --vsr-h4-size: 18px; --vsr-h4-lh: 24px; --vsr-h4-weight: 700;
+
+  /* Body */
+  --vsr-body-lg-size: 18px; --vsr-body-lg-lh: 28px;
+  --vsr-body-size:    16px; --vsr-body-lh:    24px;
+  --vsr-body-sm-size: 14px; --vsr-body-sm-lh: 20px;
+  --vsr-small-size:   13px; --vsr-small-lh:   18px;
+
+  /* Labels / micro / price */
+  --vsr-label-size:  11px; --vsr-label-lh: 14px; --vsr-label-tracking: 0.12em;
+  --vsr-price-size:  18px; --vsr-price-lh: 22px;
+
+  /* Mono */
+  --vsr-mono-size:   14px; --vsr-mono-lh:  20px;
+}
+
+/* =========================================================
+   SEMANTIC TYPE CLASSES
+   Use these rather than raw tokens where possible.
+   ========================================================= */
+
+html, body {
+  font-family: var(--vsr-font-body);
+  font-size: var(--vsr-body-size);
+  line-height: var(--vsr-body-lh);
+  color: var(--vsr-fg1);
+  background: var(--vsr-bg1);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.vsr-display-xl,
+.vsr-display-lg,
+.vsr-h1,
+.vsr-h2 {
+  font-family: var(--vsr-font-display);
+  letter-spacing: -0.02em;
+  color: var(--vsr-fg1);
+}
+
+.vsr-display-xl { font-size: var(--vsr-display-xl-size); line-height: var(--vsr-display-xl-lh); font-weight: 800; letter-spacing: -0.025em; }
+.vsr-display-lg { font-size: var(--vsr-display-lg-size); line-height: var(--vsr-display-lg-lh); font-weight: 800; letter-spacing: -0.022em; }
+.vsr-h1 { font-size: var(--vsr-h1-size); line-height: var(--vsr-h1-lh); font-weight: 800; letter-spacing: -0.02em; }
+.vsr-h2 { font-size: var(--vsr-h2-size); line-height: var(--vsr-h2-lh); font-weight: 700; letter-spacing: -0.015em; }
+
+.vsr-h3, .vsr-h4 {
+  font-family: var(--vsr-font-body);
+  font-weight: 700;
+  color: var(--vsr-fg1);
+}
+.vsr-h3 { font-size: var(--vsr-h3-size); line-height: var(--vsr-h3-lh); }
+.vsr-h4 { font-size: var(--vsr-h4-size); line-height: var(--vsr-h4-lh); }
+
+.vsr-body-lg { font-size: var(--vsr-body-lg-size); line-height: var(--vsr-body-lg-lh); font-weight: 400; }
+.vsr-body    { font-size: var(--vsr-body-size);    line-height: var(--vsr-body-lh);    font-weight: 400; }
+.vsr-body-sm { font-size: var(--vsr-body-sm-size); line-height: var(--vsr-body-sm-lh); font-weight: 500; color: var(--vsr-fg2); }
+.vsr-small   { font-size: var(--vsr-small-size);   line-height: var(--vsr-small-lh);   font-weight: 500; color: var(--vsr-fg2); }
+
+.vsr-label {
+  font-family: var(--vsr-font-body);
+  font-size: var(--vsr-label-size);
+  line-height: var(--vsr-label-lh);
+  font-weight: 600;
+  letter-spacing: var(--vsr-label-tracking);
+  text-transform: uppercase;
+  color: var(--vsr-fg2);
+}
+
+.vsr-price {
+  font-family: var(--vsr-font-body);
+  font-size: var(--vsr-price-size);
+  line-height: var(--vsr-price-lh);
+  font-weight: 700;
+  color: var(--vsr-venom);
+  font-variant-numeric: tabular-nums;
+}
+
+.vsr-mono {
+  font-family: var(--vsr-font-mono);
+  font-size: var(--vsr-mono-size);
+  line-height: var(--vsr-mono-lh);
+  font-weight: 400;
+  color: var(--vsr-fg2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Poster / race headline — for SCDRL surfaces */
+.vsr-poster {
+  font-family: var(--vsr-font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--vsr-bone);
+  font-size: 88px;
+  line-height: 0.92;
+}
+
+/* Element defaults so raw tags get the right type out of the box */
+h1 { font-family: var(--vsr-font-display); font-size: var(--vsr-h1-size); line-height: var(--vsr-h1-lh); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-family: var(--vsr-font-display); font-size: var(--vsr-h2-size); line-height: var(--vsr-h2-lh); font-weight: 700; letter-spacing: -0.015em; }
+h3 { font-family: var(--vsr-font-body);    font-size: var(--vsr-h3-size); line-height: var(--vsr-h3-lh); font-weight: 700; }
+h4 { font-family: var(--vsr-font-body);    font-size: var(--vsr-h4-size); line-height: var(--vsr-h4-lh); font-weight: 700; }
+p  { font-size: var(--vsr-body-size);      line-height: var(--vsr-body-lh); margin: 0 0 var(--vsr-s-4); }
+code, kbd, pre { font-family: var(--vsr-font-mono); }
+a { color: var(--vsr-venom-700); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Light-surface inversion */
+.vsr-on-light {
+  background: var(--vsr-bg-light);
+  color: var(--vsr-fg-inverse);
+}
+.vsr-on-light a { color: var(--vsr-venom-700); }
+.vsr-on-light .vsr-label { color: var(--vsr-smoke); }
+
+/* Utility backgrounds */
+.vsr-surface-1 { background: var(--vsr-bg1); color: var(--vsr-fg1); }
+.vsr-surface-2 { background: var(--vsr-bg2); color: var(--vsr-fg1); }
+.vsr-surface-3 { background: var(--vsr-bg3); color: var(--vsr-fg1); }
