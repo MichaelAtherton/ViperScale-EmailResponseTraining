@@ -324,9 +324,7 @@ if (-not (Test-Path $envPath)) {
     } until ($consumerKey -match "^ck_")
 
     do {
-        $secureSecret = Read-Host "  Consumer Secret (hidden as you type)" -AsSecureString
-        $consumerSecret = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
-            [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($secureSecret))
+        $consumerSecret = (Read-Host "  Consumer Secret (starts with cs_)").Trim()
         if ($consumerSecret -notmatch "^cs_") {
             Write-Host "  That doesn't look right - it should start with cs_" -ForegroundColor Red
         }
