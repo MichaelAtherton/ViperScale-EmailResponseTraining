@@ -106,47 +106,51 @@
 <script type="text/babel" src="src/chatpane.jsx"></script>
 
 <script type="text/babel">
-/* global Sidebar, ChatPane, SEED_THREADS, enzoReply */
-const { useState, useEffect, useRef } = React;
+/* global Sidebar, ChatPane, fetchConfig, fetchThreads, createThread, renameThread as apiRenameThread, pinThread as apiPinThread, deleteThread as apiDeleteThread, sendMessage */
+const { useState, useEffect, useRef, useCallback } = React;
 
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "accent": "venom",
-  "density": "cozy",
-  "showTweaks": false
-}/*EDITMODE-END*/;
+const TWEAK_DEFAULTS = { accent: "venom", density: "cozy", showTweaks: false };
+const STORAGE_KEY = "enzo.vsr.state.v2";
 
-const STORAGE_KEY = "enzo.vsr.state.v1";
-
-function loadState() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch (e) {}
-  return { threads: SEED_THREADS, activeId: SEED_THREADS[0].id, collapsed: false };
+function loadLocal() {
+  try { const raw = localStorage.getItem(STORAGE_KEY); if (raw) return JSON.parse(raw); } catch {}
+  return { threads: [], activeId: null, collapsed: false, messages: {} };
 }
-function saveState(s) {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch(e) {}
+function saveLocal(s) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch {}
 }
 
 function App() {
-  const [state, setState] = useState(loadState);
+  const [state, setState] = useState(loadLocal);
+  const [config, setConfig] = useState(null);
   const [tweaksOpen, setTweaksOpen] = useState(false);
   const [tweaks, setTweaks] = useState(TWEAK_DEFAULTS);
+  const [typing, setTyping] = useState(false);
 
-  useEffect(() => { saveState(state); }, [state]);
+  useEffect(() => { saveLocal(state); }, [state]);
 
-  // Apply accent color
+  // Load config + threads from server on mount
   useEffect(() => {
-    const map = {
-      venom: "#7af201",
-      red: "#e63946",
-      yellow: "#f2c14e",
-      chrome: "#e6e7e8"
-    };
+    fetchConfig().then(c => { if (c) setConfig(c); });
+    fetchThreads().then(serverThreads => {
+      if (!serverThreads || Object.keys(serverThreads).length === 0) return;
+      setState(prev => {
+        const merged = Object.entries(serverThreads).map(([id, meta]) => ({
+          id, title: meta.title, pinned: meta.pinned, lastMessage: meta.lastMessage,
+          messages: prev.messages?.[id] || []
+        }));
+        const activeId = prev.activeId && merged.find(t => t.id === prev.activeId) ? prev.activeId : (merged[0]?.id || null);
+        return { ...prev, threads: merged, activeId, messages: prev.messages || {} };
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    const map = { venom: "#7af201", red: "#e63946", yellow: "#f2c14e", chrome: "#e6e7e8" };
     document.documentElement.style.setProperty("--venom", map[tweaks.accent] || map.venom);
   }, [tweaks.accent]);
 
-  // Tweaks protocol
+  // Tweaks protocol (for Claude Design edit mode)
   useEffect(() => {
     function onMsg(e) {
       const d = e.data || {};
@@ -164,64 +168,102 @@ function App() {
     window.parent.postMessage({ type: "__edit_mode_set_keys", edits: { [k]: v } }, "*");
   }
 
-  const active = state.threads.find(t => t.id === state.activeId) || state.threads[0];
+  const active = state.threads.find(t => t.id === state.activeId) || null;
+  const activeMessages = state.messages?.[state.activeId] || [];
+  const activeThread = active ? { ...active, messages: activeMessages } : null;
 
   function selectThread(id) { setState(s => ({ ...s, activeId: id })); }
   function toggleCollapsed() { setState(s => ({ ...s, collapsed: !s.collapsed })); }
 
-  function newThread() {
+  async function newThread() {
     const id = "t" + Date.now();
-    const t = { id, title: "New chat", folder: "General", pinned: false, updated: Date.now(), messages: [] };
-    setState(s => ({ ...s, threads: [t, ...s.threads], activeId: id }));
+    const t = { id, title: "New chat", pinned: false, lastMessage: new Date().toISOString(), messages: [] };
+    setState(s => ({
+      ...s,
+      threads: [t, ...s.threads],
+      activeId: id,
+      messages: { ...s.messages, [id]: [] }
+    }));
+    await createThread(id);
   }
 
-  function deleteThread(id) {
+  async function handleDeleteThread(id) {
+    await apiDeleteThread(id);
     setState(s => {
       const remaining = s.threads.filter(t => t.id !== id);
+      const newMessages = { ...s.messages };
+      delete newMessages[id];
       if (remaining.length === 0) {
-        const blank = { id: "t" + Date.now(), title: "New chat", folder: "General", pinned: false, updated: Date.now(), messages: [] };
-        return { ...s, threads: [blank], activeId: blank.id };
+        return { ...s, threads: [], activeId: null, messages: newMessages };
       }
-      return { ...s, threads: remaining, activeId: s.activeId === id ? remaining[0].id : s.activeId };
+      return { ...s, threads: remaining, activeId: s.activeId === id ? remaining[0].id : s.activeId, messages: newMessages };
     });
   }
-  function pinThread(id) {
+
+  async function handlePinThread(id) {
+    await apiPinThread(id);
     setState(s => ({ ...s, threads: s.threads.map(t => t.id === id ? { ...t, pinned: !t.pinned } : t) }));
   }
-  function renameThread(id, title) {
+
+  async function handleRenameThread(id, title) {
+    await apiRenameThread(id, title);
     setState(s => ({ ...s, threads: s.threads.map(t => t.id === id ? { ...t, title } : t) }));
   }
 
-  // Send handler — two-phase: text then bot reply callback
-  function handleSend(text, onBotReply, injectedReply) {
-    // injectedReply means the bot is delivering; text is null
-    if (injectedReply) {
-      setState(s => {
-        const thread = s.threads.find(t => t.id === s.activeId);
-        if (!thread) return s;
-        const newMsgs = [...thread.messages, { who: "bot", ...injectedReply }];
-        const updated = { ...thread, messages: newMsgs, updated: Date.now() };
-        return { ...s, threads: s.threads.map(t => t.id === updated.id ? updated : t) };
-      });
-      return;
-    }
+  async function handleSend(text) {
+    const t = (text || "").trim();
+    if (!t || !state.activeId) return;
+
+    // Add user message
+    const userMsg = { who: "me", text: t };
     setState(s => {
-      const thread = s.threads.find(t => t.id === s.activeId);
-      if (!thread) return s;
-      let newTitle = thread.title;
-      if (thread.messages.length === 0 || thread.title === "New chat") {
-        newTitle = text.slice(0, 48) + (text.length > 48 ? "…" : "");
+      const msgs = [...(s.messages[s.activeId] || []), userMsg];
+      let threads = s.threads;
+      const thread = threads.find(th => th.id === s.activeId);
+      if (thread && (thread.title === "New chat" || thread.messages?.length === 0)) {
+        const newTitle = t.slice(0, 48) + (t.length > 48 ? "..." : "");
+        threads = threads.map(th => th.id === s.activeId ? { ...th, title: newTitle } : th);
       }
-      const newMsgs = [...thread.messages, { who: "me", text }];
-      const updated = { ...thread, title: newTitle, messages: newMsgs, updated: Date.now() };
-      return { ...s, threads: s.threads.map(t => t.id === updated.id ? updated : t) };
+      return { ...s, threads, messages: { ...s.messages, [s.activeId]: msgs } };
     });
-    // Schedule bot reply
-    const reply = enzoReply(text);
-    if (onBotReply) onBotReply(reply);
+
+    setTyping(true);
+
+    // Call the real API
+    const threadId = state.activeId;
+    let botText = "";
+    let botRefs = null;
+    let botStats = null;
+
+    await sendMessage(
+      threadId,
+      t,
+      (text) => { botText = text; },
+      (refs) => { botRefs = refs; },
+      (stats) => { botStats = stats; },
+      (sessionId) => {
+        // Done — add bot message
+        setTyping(false);
+        const botMsg = { who: "bot", text: botText };
+        if (botRefs && botRefs.length) botMsg.refs = botRefs;
+        if (botStats && botStats.length) botMsg.stats = botStats;
+        setState(s => {
+          const msgs = [...(s.messages[s.activeId] || []), botMsg];
+          const threads = s.threads.map(th => th.id === s.activeId ? { ...th, lastMessage: new Date().toISOString() } : th);
+          return { ...s, threads, messages: { ...s.messages, [s.activeId]: msgs } };
+        });
+      },
+      (error) => {
+        setTyping(false);
+        const errMsg = { who: "bot", text: `Sorry, something went wrong: ${error}` };
+        setState(s => {
+          const msgs = [...(s.messages[s.activeId] || []), errMsg];
+          return { ...s, messages: { ...s.messages, [s.activeId]: msgs } };
+        });
+      }
+    );
   }
 
-  // Density scales
   const densityStyle = tweaks.density === "compact"
     ? { "--msg-gap": "14px" } : tweaks.density === "spacious"
     ? { "--msg-gap": "28px" } : { "--msg-gap": "20px" };
@@ -233,16 +275,19 @@ function App() {
         activeId={state.activeId}
         onSelect={selectThread}
         onNew={newThread}
-        onDeleteThread={deleteThread}
-        onPinThread={pinThread}
-        onRenameThread={renameThread}
+        onDeleteThread={handleDeleteThread}
+        onPinThread={handlePinThread}
+        onRenameThread={handleRenameThread}
         collapsed={state.collapsed}
         onToggleCollapsed={toggleCollapsed}
+        config={config}
       />
       <ChatPane
-        thread={active}
+        thread={activeThread}
         onSend={handleSend}
-        onTitleEdit={renameThread}
+        onTitleEdit={handleRenameThread}
+        config={config}
+        typing={typing}
       />
       {tweaksOpen && (
         <div className="tweaks">
@@ -265,7 +310,7 @@ function App() {
             ))}
           </div>
           <div style={{ fontSize: 11, color: "var(--fg3)", lineHeight: 1.5, marginTop: 4, borderTop: "1px solid var(--steel)", paddingTop: 12 }}>
-            Threads, pins, and renames persist in localStorage. Refresh to confirm.
+            Threads persist on the server. Pins and renames sync automatically.
           </div>
         </div>
       )}
