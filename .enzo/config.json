@@ -1,0 +1,24 @@
+{
+  "userName": "Dan",
+  "userRole": "Shop Owner",
+  "appName": "Enzo",
+  "subtitle": "Viper Shop Assistant",
+  "greeting": "Hey Dan - what are we wrenching on?",
+  "heroSubtext": "Customer questions, tuning advice, or the numbers - ask away. I've got the whole catalog and order book cached.",
+  "quickActions": [
+    { "icon": "package", "label": "Order lookup", "prompt": "Look up order " },
+    { "icon": "zap", "label": "Recommend a setup", "prompt": "Recommend a setup for " },
+    { "icon": "chart", "label": "Sales report", "prompt": "Pull a sales report for " },
+    { "icon": "book", "label": "Product specs", "prompt": "Give me the specs for " }
+  ],
+  "suggestions": [
+    { "icon": "zap", "label": "Best chassis for 12V drag racing?" },
+    { "icon": "package", "label": "Check order status by number" },
+    { "icon": "chart", "label": "Q1 sales summary" },
+    { "icon": "wrench", "label": "Mega-G+ tuning walkthrough" },
+    { "icon": "flag", "label": "SCDRL Spring Nationals details" },
+    { "icon": "users", "label": "Top customers by lifetime value" }
+  ],
+  "disclaimer": "Enzo can make mistakes on live orders - double-check dollar figures before replying to customers.",
+  "port": 3456
+}
