@@ -113,11 +113,19 @@ Write-Host "  [2/5] Checking Claude Code..." -ForegroundColor Yellow
 $claudeDir = Join-Path $env:USERPROFILE ".local\bin"
 $claudeExe = Join-Path $claudeDir "claude.exe"
 
+function AddToUserPath([string]$dir) {
+    $currentPath = [System.Environment]::GetEnvironmentVariable("Path", "User")
+    if ($currentPath -notlike "*$dir*") {
+        [System.Environment]::SetEnvironmentVariable("Path", "$dir;$currentPath", "User")
+        $env:PATH = "$dir;$env:PATH"
+        Log "ACTION added $dir to USER PATH permanently"
+    }
+}
+
 function FindClaude() {
     if (Get-Command claude -ErrorAction SilentlyContinue) { return $true }
     if (Test-Path $claudeExe) {
-        $env:PATH = "$claudeDir;$env:PATH"
-        Log "ACTION added $claudeDir to PATH"
+        AddToUserPath $claudeDir
         return $true
     }
     return $false
@@ -288,30 +296,37 @@ if (Test-Path $envPath) {
 
 if (-not (Test-Path $envPath)) {
     Write-Host ""
-    Write-Host "  Get your API keys from:" -ForegroundColor Cyan
-    Write-Host "  WP Admin > WooCommerce > Settings > Advanced > REST API"
+    Write-Host "  Enzo needs to connect to the Viper Scale Racing online store" -ForegroundColor Cyan
+    Write-Host "  so it can look up parts and inventory when answering customers." -ForegroundColor Cyan
+    Write-Host ""
+    Write-Host "  Michael should have given you 3 pieces of information:" -ForegroundColor Cyan
+    Write-Host "    - A store URL      (looks like: https://viperscaleracing.com)" -ForegroundColor Cyan
+    Write-Host "    - A consumer key   (starts with: ck_)" -ForegroundColor Cyan
+    Write-Host "    - A consumer secret (starts with: cs_)" -ForegroundColor Cyan
+    Write-Host ""
+    Write-Host "  If you don't have these, ask Michael. He can send them to you." -ForegroundColor Yellow
     Write-Host ""
 
     do {
-        $baseUrl = (Read-Host "  Store URL (e.g. https://viperscaleracing.com)").Trim()
+        $baseUrl = (Read-Host "  Store URL").Trim()
         if ($baseUrl -notmatch "^https?://") {
-            Write-Host "  Must start with http:// or https://" -ForegroundColor Red
+            Write-Host "  That doesn't look right - it should start with https://" -ForegroundColor Red
         }
     } until ($baseUrl -match "^https?://")
 
     do {
-        $consumerKey = (Read-Host "  Consumer Key (starts with ck_)").Trim()
+        $consumerKey = (Read-Host "  Consumer Key").Trim()
         if ($consumerKey -notmatch "^ck_") {
-            Write-Host "  Must start with ck_" -ForegroundColor Red
+            Write-Host "  That doesn't look right - it should start with ck_" -ForegroundColor Red
         }
     } until ($consumerKey -match "^ck_")
 
     do {
-        $secureSecret = Read-Host "  Consumer Secret (starts with cs_ - hidden as you type)" -AsSecureString
+        $secureSecret = Read-Host "  Consumer Secret (hidden as you type)" -AsSecureString
         $consumerSecret = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
             [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($secureSecret))
         if ($consumerSecret -notmatch "^cs_") {
-            Write-Host "  Must start with cs_" -ForegroundColor Red
+            Write-Host "  That doesn't look right - it should start with cs_" -ForegroundColor Red
         }
     } until ($consumerSecret -match "^cs_")
 
