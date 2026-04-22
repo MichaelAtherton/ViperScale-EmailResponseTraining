@@ -275,6 +275,48 @@ if ($LASTEXITCODE -ne 0) { FailExit "WooCommerce integration imports failed afte
 Write-Host "  OK  WooCommerce integration ready" -ForegroundColor Green
 Log "VERIFY woocommerce imports OK"
 
+# -- Scene 4.5: Node.js -------------------------------------------
+Write-Host ""
+Write-Host "  [3.5/5] Checking Node.js..." -ForegroundColor Yellow
+
+if (Get-Command node -ErrorAction SilentlyContinue) {
+    $nodeVer = (node --version 2>&1)
+    Write-Host "  OK  Node.js found ($nodeVer)" -ForegroundColor Green
+    Log "CHECK node: found $nodeVer"
+} else {
+    Write-Host "  --  Node.js not found. Installing..." -ForegroundColor Yellow
+    $nodeInstalled = $false
+    if (Get-Command winget -ErrorAction SilentlyContinue) {
+        Log "ACTION install node via winget"
+        winget install OpenJS.NodeJS.LTS --scope user --silent --accept-package-agreements --accept-source-agreements
+        if ($LASTEXITCODE -eq 0) { $nodeInstalled = $true }
+        else { Log "WARN winget node install failed exit code $LASTEXITCODE" }
+    }
+    if ($nodeInstalled) {
+        RefreshPath
+        Start-Sleep -Seconds 2
+        RefreshPath
+        Write-Host "  OK  Node.js installed" -ForegroundColor Green
+        Log "VERIFY node: installed"
+    } else {
+        Write-Host "  Please install Node.js manually:" -ForegroundColor Yellow
+        Write-Host "    Download from https://nodejs.org/" -ForegroundColor Cyan
+        Write-Host "    Run the installer, then run START-HERE again" -ForegroundColor Cyan
+        Start-Process "https://nodejs.org/"
+        FailExit "Install Node.js LTS, then run START-HERE again."
+    }
+}
+
+# Install chat UI server dependencies
+Write-Host "  --  Installing chat UI dependencies..." -ForegroundColor Yellow
+$launcherWin = Join-Path $ProjectRoot "launcher\win"
+Push-Location $launcherWin
+npm install --production 2>&1 | Out-Null
+if ($LASTEXITCODE -ne 0) { FailExit "npm install failed in launcher\win" }
+Pop-Location
+Write-Host "  OK  Chat UI ready" -ForegroundColor Green
+Log "VERIFY npm install OK"
+
 # ── Scene 5: WooCommerce credentials ──────────────────────
 Write-Host ""
 Write-Host "  [4/5] WooCommerce Connection" -ForegroundColor Yellow
@@ -341,6 +383,54 @@ if (-not (Test-Path $envPath)) {
     Log "WRITE .env (3 fields)"
 }
 
+# -- Scene 5.5: User config ----------------------------------------
+Write-Host ""
+Write-Host "  [4.5/5] Personalizing Enzo" -ForegroundColor Yellow
+
+$enzoDir = Join-Path $ProjectRoot ".enzo"
+$configPath = Join-Path $enzoDir "config.json"
+
+if (-not (Test-Path $configPath)) {
+    if (-not (Test-Path $enzoDir)) { New-Item -ItemType Directory -Path $enzoDir | Out-Null }
+    $name = Read-Host "  Your name (how Enzo will greet you)"
+    if (-not $name) { $name = "Team" }
+    $role = Read-Host "  Your role (e.g. Shop Owner)"
+    if (-not $role) { $role = "User" }
+
+    $configLines = @(
+        '{',
+        '  "userName": "' + $name + '",',
+        '  "userRole": "' + $role + '",',
+        '  "appName": "Enzo",',
+        '  "subtitle": "Viper Shop Assistant",',
+        '  "greeting": "Hey ' + $name + ' - what are we wrenching on?",',
+        '  "heroSubtext": "Customer questions, tuning advice, or the numbers - ask away.",',
+        '  "quickActions": [',
+        '    { "icon": "package", "label": "Order lookup", "prompt": "Look up order " },',
+        '    { "icon": "zap", "label": "Recommend a setup", "prompt": "Recommend a setup for " },',
+        '    { "icon": "chart", "label": "Sales report", "prompt": "Pull a sales report for " },',
+        '    { "icon": "book", "label": "Product specs", "prompt": "Give me the specs for " }',
+        '  ],',
+        '  "suggestions": [',
+        '    { "icon": "zap", "label": "Best chassis for 12V drag racing?" },',
+        '    { "icon": "package", "label": "Check order status by number" },',
+        '    { "icon": "chart", "label": "Q1 sales summary" },',
+        '    { "icon": "wrench", "label": "Mega-G+ tuning walkthrough" },',
+        '    { "icon": "flag", "label": "SCDRL Spring Nationals details" },',
+        '    { "icon": "users", "label": "Top customers by lifetime value" }',
+        '  ],',
+        '  "disclaimer": "Enzo can make mistakes on live orders - double-check dollar figures before replying to customers.",',
+        '  "port": 3456',
+        '}'
+    )
+    Set-Content -Path $configPath -Value ($configLines -join "`r`n") -Encoding UTF8
+    Write-Host "  OK  Enzo configured for $name" -ForegroundColor Green
+    Log "WRITE .enzo/config.json for $name"
+} else {
+    Write-Host "  OK  Config already exists" -ForegroundColor Green
+    Log "CHECK .enzo/config.json: exists"
+}
+
 # ── Scene 6: Desktop shortcut ─────────────────────────────
 Write-Host ""
 Write-Host "  [5/5] Creating desktop shortcut..." -ForegroundColor Yellow
@@ -351,7 +441,7 @@ $desktopPath = $shell.SpecialFolders("Desktop")
 $shortcutPath = Join-Path $desktopPath "Enzo.lnk"
 $shortcut = $shell.CreateShortcut($shortcutPath)
 $launcherDir = Join-Path $ProjectRoot "launcher\win"
-$shortcut.TargetPath = Join-Path $launcherDir "launch.bat"
+$shortcut.TargetPath = Join-Path (Join-Path $ProjectRoot "launcher\win") "launch-ui.bat"
 $shortcut.WorkingDirectory = $ProjectRoot
 $icoPath = Join-Path $ProjectRoot "assets\viper.ico"
 if (Test-Path $icoPath) {
