@@ -126,7 +126,6 @@ if (FindClaude) {
     Log "CHECK claude: found $ccVer"
 } else {
     Write-Host "  --  Claude Code not found. Installing..." -ForegroundColor Yellow
-    Write-Host "       (If Windows Defender pops up, allow the install)" -ForegroundColor Yellow
     Log "ACTION install claude-code"
 
     # Clean any broken staging cache from a previous failed install
@@ -136,12 +135,30 @@ if (FindClaude) {
         Log "ACTION cleaned stale CC staging cache"
     }
 
-    # Run Claude's installer in the CURRENT process so it inherits our TLS 1.2 setting
-    # (spawning a child powershell loses the TLS config and fails on HTTPS)
-    try {
-        Invoke-RestMethod "https://claude.ai/install.ps1" | Invoke-Expression
-    } catch {
-        Log "WARN CC installer threw error: $_"
+    # Strategy: try winget first (handles its own HTTPS, avoids PS TLS issues)
+    # Fall back to PowerShell iex method if winget unavailable
+    $ccInstalled = $false
+
+    if (Get-Command winget -ErrorAction SilentlyContinue) {
+        Write-Host "  --  Installing via winget..." -ForegroundColor Yellow
+        Log "ACTION install claude-code via winget"
+        winget install Anthropic.ClaudeCode --silent --accept-package-agreements --accept-source-agreements
+        if ($LASTEXITCODE -eq 0) {
+            $ccInstalled = $true
+        } else {
+            Write-Host "  !!  winget install returned exit code $LASTEXITCODE, trying alternative..." -ForegroundColor Yellow
+            Log "WARN winget CC install exit code $LASTEXITCODE"
+        }
+    }
+
+    if (-not $ccInstalled) {
+        Write-Host "  --  Installing via Anthropic installer..." -ForegroundColor Yellow
+        Log "ACTION install claude-code via iex"
+        try {
+            Invoke-RestMethod "https://claude.ai/install.ps1" | Invoke-Expression
+        } catch {
+            Log "WARN CC iex installer error: $_"
+        }
     }
 
     Start-Sleep -Seconds 3
@@ -149,18 +166,17 @@ if (FindClaude) {
 
     if (-not (FindClaude)) {
         Write-Host ""
-        Write-Host "  Claude Code install may have been blocked by antivirus." -ForegroundColor Yellow
-        Write-Host "  Try these steps:" -ForegroundColor Yellow
-        Write-Host "    1. Open a NEW PowerShell window" -ForegroundColor Cyan
-        Write-Host "    2. Run: irm claude.ai/install.ps1 | iex" -ForegroundColor Cyan
-        Write-Host "    3. After it finishes, run START-HERE again" -ForegroundColor Cyan
+        Write-Host "  Could not find Claude Code after install." -ForegroundColor Yellow
+        Write-Host "  Try installing manually:" -ForegroundColor Yellow
+        Write-Host "    Option 1: winget install Anthropic.ClaudeCode" -ForegroundColor Cyan
+        Write-Host "    Option 2: irm claude.ai/install.ps1 | iex" -ForegroundColor Cyan
+        Write-Host "  Then run START-HERE again." -ForegroundColor Yellow
         FailExit "Claude Code not found after install attempt."
     }
 
-    # Verify it actually runs
     $ccVer = (claude --version 2>&1) | Select-Object -First 1
     if (-not $ccVer) {
-        FailExit "Claude Code binary exists but failed to run. Try reinstalling manually: irm claude.ai/install.ps1 | iex"
+        FailExit "Claude Code binary exists but failed to run. Try: winget install Anthropic.ClaudeCode"
     }
     Write-Host "  OK  Claude Code installed ($ccVer)" -ForegroundColor Green
     Log "VERIFY claude: installed $ccVer"
