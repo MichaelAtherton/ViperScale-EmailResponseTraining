@@ -129,15 +129,6 @@ if (FindClaude) {
     Write-Host "       (If Windows Defender pops up, allow the install)" -ForegroundColor Yellow
     Log "ACTION install claude-code"
 
-    # Download installer script to a file first, then run it
-    # This avoids iex pipe issues and lets us retry
-    $ccInstaller = Join-Path $env:TEMP "claude-install.ps1"
-    try {
-        Invoke-WebRequest -Uri "https://claude.ai/install.ps1" -OutFile $ccInstaller -UseBasicParsing
-    } catch {
-        FailExit "Could not download Claude Code installer: $_"
-    }
-
     # Clean any broken staging cache from a previous failed install
     $ccCache = Join-Path $env:USERPROFILE ".cache\claude"
     if (Test-Path $ccCache) {
@@ -145,12 +136,13 @@ if (FindClaude) {
         Log "ACTION cleaned stale CC staging cache"
     }
 
+    # Run Claude's installer in the CURRENT process so it inherits our TLS 1.2 setting
+    # (spawning a child powershell loses the TLS config and fails on HTTPS)
     try {
-        & powershell -NoProfile -ExecutionPolicy Bypass -File $ccInstaller
+        Invoke-RestMethod "https://claude.ai/install.ps1" | Invoke-Expression
     } catch {
         Log "WARN CC installer threw error: $_"
     }
-    Remove-Item $ccInstaller -ErrorAction SilentlyContinue
 
     Start-Sleep -Seconds 3
     RefreshPath
