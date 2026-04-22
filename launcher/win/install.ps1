@@ -106,46 +106,66 @@ if (-not (Test-Path (Join-Path $PSScriptRoot ".git"))) {
 Write-Host ""
 Write-Host "  [2/5] Checking Claude Code..." -ForegroundColor Yellow
 
-if (Get-Command claude -ErrorAction SilentlyContinue) {
+# Known install location for Claude Code on Windows
+$claudeDir = Join-Path $env:USERPROFILE ".local\bin"
+$claudeExe = Join-Path $claudeDir "claude.exe"
+
+function FindClaude() {
+    if (Get-Command claude -ErrorAction SilentlyContinue) { return $true }
+    if (Test-Path $claudeExe) {
+        $env:PATH = "$claudeDir;$env:PATH"
+        Log "ACTION added $claudeDir to PATH"
+        return $true
+    }
+    return $false
+}
+
+if (FindClaude) {
     $ccVer = (claude --version 2>&1) | Select-Object -First 1
     Write-Host "  OK  Claude Code found ($ccVer)" -ForegroundColor Green
     Log "CHECK claude: found $ccVer"
 } else {
     Write-Host "  --  Claude Code not found. Installing..." -ForegroundColor Yellow
+    Write-Host "       (If Windows Defender pops up, allow the install)" -ForegroundColor Yellow
     Log "ACTION install claude-code"
+
+    # Download installer script to a file first, then run it
+    # This avoids iex pipe issues and lets us retry
+    $ccInstaller = Join-Path $env:TEMP "claude-install.ps1"
     try {
-        Invoke-RestMethod "https://claude.ai/install.ps1" | Invoke-Expression
+        Invoke-WebRequest -Uri "https://claude.ai/install.ps1" -OutFile $ccInstaller -UseBasicParsing
     } catch {
-        FailExit "Claude Code install failed: $_"
+        FailExit "Could not download Claude Code installer: $_"
     }
+
+    # Run with --force to handle partial previous installs
+    try {
+        & powershell -NoProfile -ExecutionPolicy Bypass -File $ccInstaller --force
+    } catch {
+        Log "WARN CC installer threw error: $_"
+    }
+    Remove-Item $ccInstaller -ErrorAction SilentlyContinue
+
     Start-Sleep -Seconds 3
     RefreshPath
 
-    # Check PATH first, then fall back to known install location
-    $claudeFound = $false
-    if (Get-Command claude -ErrorAction SilentlyContinue) {
-        $claudeFound = $true
-    } else {
-        # Claude Code installs to %USERPROFILE%\.local\bin\ -- add it manually
-        $claudeDir = Join-Path $env:USERPROFILE ".local\bin"
-        $claudeExe = Join-Path $claudeDir "claude.exe"
-        if (Test-Path $claudeExe) {
-            $env:PATH = "$claudeDir;$env:PATH"
-            $claudeFound = $true
-            Log "ACTION added $claudeDir to PATH manually"
-        }
+    if (-not (FindClaude)) {
+        Write-Host ""
+        Write-Host "  Claude Code install may have been blocked by antivirus." -ForegroundColor Yellow
+        Write-Host "  Try these steps:" -ForegroundColor Yellow
+        Write-Host "    1. Open a NEW PowerShell window" -ForegroundColor Cyan
+        Write-Host "    2. Run: irm claude.ai/install.ps1 | iex" -ForegroundColor Cyan
+        Write-Host "    3. After it finishes, run START-HERE again" -ForegroundColor Cyan
+        FailExit "Claude Code not found after install attempt."
     }
 
-    if (-not $claudeFound) {
-        Write-Host ""
-        Write-Host "  Claude Code may have installed but PATH didn't update." -ForegroundColor Yellow
-        Write-Host "  Try closing this window, opening a NEW PowerShell, and running:" -ForegroundColor Yellow
-        Write-Host "    claude --version" -ForegroundColor Cyan
-        Write-Host "  If that works, run START-HERE again and it will find Claude." -ForegroundColor Yellow
-        FailExit "Claude Code not found in PATH after install."
+    # Verify it actually runs
+    $ccVer = (claude --version 2>&1) | Select-Object -First 1
+    if (-not $ccVer) {
+        FailExit "Claude Code binary exists but failed to run. Try reinstalling manually: irm claude.ai/install.ps1 | iex"
     }
-    Write-Host "  OK  Claude Code installed" -ForegroundColor Green
-    Log "VERIFY claude: installed"
+    Write-Host "  OK  Claude Code installed ($ccVer)" -ForegroundColor Green
+    Log "VERIFY claude: installed $ccVer"
 }
 
 # ── Scene 4: Python 3.11+ ─────────────────────────────────
