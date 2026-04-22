@@ -7,6 +7,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $script:LogPath = Join-Path $PSScriptRoot ".install-log.txt"
 
 function Log([string]$event) {
