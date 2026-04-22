@@ -138,9 +138,15 @@ if (FindClaude) {
         FailExit "Could not download Claude Code installer: $_"
     }
 
-    # Run with --force to handle partial previous installs
+    # Clean any broken staging cache from a previous failed install
+    $ccCache = Join-Path $env:USERPROFILE ".cache\claude"
+    if (Test-Path $ccCache) {
+        Remove-Item -Recurse -Force $ccCache -ErrorAction SilentlyContinue
+        Log "ACTION cleaned stale CC staging cache"
+    }
+
     try {
-        & powershell -NoProfile -ExecutionPolicy Bypass -File $ccInstaller --force
+        & powershell -NoProfile -ExecutionPolicy Bypass -File $ccInstaller
     } catch {
         Log "WARN CC installer threw error: $_"
     }
