@@ -300,16 +300,18 @@ if (-not (Test-Path $envPath)) {
     Write-Host "  so it can look up parts and inventory when answering customers." -ForegroundColor Cyan
     Write-Host ""
     Write-Host "  Michael should have given you 3 pieces of information:" -ForegroundColor Cyan
-    Write-Host "    - A store URL      (looks like: https://viperscaleracing.com)" -ForegroundColor Cyan
-    Write-Host "    - A consumer key   (starts with: ck_)" -ForegroundColor Cyan
-    Write-Host "    - A consumer secret (starts with: cs_)" -ForegroundColor Cyan
+    Write-Host "    - Your website address  (e.g. https://viperscaleracing.com)" -ForegroundColor Cyan
+    Write-Host "    - A consumer key        (starts with: ck_)" -ForegroundColor Cyan
+    Write-Host "    - A consumer secret     (starts with: cs_)" -ForegroundColor Cyan
     Write-Host ""
     Write-Host "  If you don't have these, ask Michael. He can send them to you." -ForegroundColor Yellow
     Write-Host ""
 
     do {
-        $baseUrl = (Read-Host "  Store URL").Trim()
-        if ($baseUrl -notmatch "^https?://") {
+        $baseUrl = (Read-Host "  Your website address (e.g. https://viperscaleracing.com)").Trim()
+        if (-not $baseUrl) {
+            Write-Host "  Please enter your website address" -ForegroundColor Red
+        } elseif ($baseUrl -notmatch "^https?://") {
             Write-Host "  That doesn't look right - it should start with https://" -ForegroundColor Red
         }
     } until ($baseUrl -match "^https?://")
