@@ -1,4 +1,4 @@
-/* global React, EnzoMark, UserAvatar, Icons, TypingDots, ProductRef, OrderRef, StatGrid, SUGGESTIONS_HOME, QUICK_ACTIONS, enzoReply, parseLinks, copyMessageForEmail, copyMessageAsText */
+/* global React, EnzoMark, UserAvatar, Icons, TypingDots, ProductRef, OrderRef, StatGrid, parseLinks, copyMessageForEmail, copyMessageAsText */
 const { useState: useS_C, useEffect: useE_C, useRef: useR_C } = React;
 
 function ChatPane({ thread, onSend, onNewFromHome, onTitleEdit, config, typing: externalTyping }) {
@@ -90,7 +90,7 @@ function ChatPane({ thread, onSend, onNewFromHome, onTitleEdit, config, typing: 
 
       {/* Body */}
       <div ref={bodyRef} style={{ flex: 1, overflowY: "auto", padding: isHome ? "20px" : "28px 24px 40px" }}>
-        {isHome ? <HomeScreen onSend={handleSend}/> : (
+        {isHome ? <HomeScreen onSend={handleSend} config={config}/> : (
           <div style={{ maxWidth: 760, margin: "0 auto", display: "flex", flexDirection: "column", gap: 20 }}>
             {thread.messages.length === 0 && thread.title !== "New chat" && (
               <div className="fade-in" style={{
@@ -291,7 +291,22 @@ function MsgAction({ icon, label }) {
   );
 }
 
-function HomeScreen({ onSend }) {
+function HomeScreen({ onSend, config }) {
+  const quickActions = config?.quickActions || [
+    { icon: "package", label: "Order lookup", prompt: "Look up order " },
+    { icon: "zap", label: "Recommend a setup", prompt: "Recommend a setup for " },
+    { icon: "chart", label: "Sales report", prompt: "Pull a sales report for " },
+    { icon: "book", label: "Product specs", prompt: "Give me the specs for " }
+  ];
+  const suggestions = config?.suggestions || [
+    { icon: "zap", label: "Best chassis for 12V drag racing?" },
+    { icon: "package", label: "Check order status by number" },
+    { icon: "chart", label: "Q1 sales summary" },
+    { icon: "wrench", label: "Mega-G+ tuning walkthrough" }
+  ];
+  const greeting = config?.greeting || "What can I help with?";
+  const heroSubtext = config?.heroSubtext || "Ask me anything.";
+
   return (
     <div style={{ maxWidth: 760, margin: "0 auto", padding: "40px 8px 0", display: "flex", flexDirection: "column", gap: 36 }}>
       {/* Hero */}
@@ -308,20 +323,20 @@ function HomeScreen({ onSend }) {
             fontFamily: "Nunito, sans-serif", fontWeight: 900, fontSize: 42,
             letterSpacing: "-0.03em", color: "var(--bone)", margin: 0, lineHeight: 1.05
           }}>
-            Hey Ray — <span style={{ color: "var(--venom)" }}>what are we wrenching on?</span>
+            <span style={{ color: "var(--venom)" }}>{greeting}</span>
           </h1>
           <p style={{
             color: "var(--fg2)", fontSize: 16, marginTop: 14, maxWidth: 520,
             marginLeft: "auto", marginRight: "auto", lineHeight: 1.5
           }}>
-            Customer questions, tuning advice, SCDRL logistics, or the Q1 numbers — ask away. I've got the whole catalog, order book, and race calendar cached.
+            {heroSubtext}
           </p>
         </div>
       </div>
 
       {/* Quick actions */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10 }}>
-        {QUICK_ACTIONS.map((a) => {
+        {quickActions.map((a) => {
           const I = Icons[a.icon];
           return (
             <button key={a.label}
@@ -356,7 +371,7 @@ function HomeScreen({ onSend }) {
           <Icons.sparkles/> Try asking
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-          {SUGGESTIONS_HOME.map(s => {
+          {suggestions.map(s => {
             const I = Icons[s.icon];
             return (
               <button key={s.label}
